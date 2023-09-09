@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,24 +16,32 @@
       <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" styleClass="tab-header" VBox.vgrow="NEVER">
-               <children>
-                  <ToggleButton fx:id="departureToggle" mnemonicParsing="false" prefWidth="1000.0" selected="true" styleClass="tab-toggle" text="Departure" HBox.hgrow="ALWAYS">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="tabToggle" />
-                     </toggleGroup>
-                     <HBox.margin>
-                        <Insets left="2.0" right="2.0" />
-                     </HBox.margin>
-                  </ToggleButton>
-                  <ToggleButton fx:id="arrivalToggle" mnemonicParsing="false" prefWidth="1000.0" styleClass="tab-toggle" text="Arrival" toggleGroup="$tabToggle" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="2.0" right="2.0" />
-                     </HBox.margin>
-                  </ToggleButton>
-               </children>
                <padding>
                   <Insets left="2.0" right="2.0" top="8.0" />
                </padding>
+               <children>
+                  <RadioButton fx:id="departureToggle" mnemonicParsing="false" selected="true" text="Departure" HBox.hgrow="ALWAYS">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tabToggle" />
+                     </toggleGroup>
+                     <styleClass>
+                        <String fx:value="toggle-button" />
+                        <String fx:value="tab-toggle" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="arrivalToggle" mnemonicParsing="false" text="Arrival" toggleGroup="$tabToggle" HBox.hgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="toggle-button" />
+                        <String fx:value="tab-toggle" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
             </HBox>
             <VBox fx:id="tabContent" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
          </children>

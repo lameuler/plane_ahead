@@ -1,7 +1,10 @@
 .tab-toggle {
     -fx-background-color: linear-gradient(to top, #b6bdc2, #E2EFF6 70%);
-    -fx-background-insets: 0;
     -fx-background-radius: 10 10 0 0;
+    -fx-padding: 2 2 0 2;
+    -fx-background-insets: 2 2 0 2;
+    -fx-pref-width: 200;
+    -fx-pref-height: 36;
 }
 .tab-toggle:selected {
     -fx-background-color: #E2EFF6;

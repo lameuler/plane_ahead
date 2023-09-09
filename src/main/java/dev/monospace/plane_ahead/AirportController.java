@@ -2,6 +2,8 @@ package dev.monospace.plane_ahead;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
@@ -13,9 +15,9 @@ public class AirportController {
     @FXML
     private Pane planeLayer;
     @FXML
-    private ToggleButton departureToggle;
+    private RadioButton departureToggle;
     @FXML
-    private ToggleButton arrivalToggle;
+    private RadioButton arrivalToggle;
     @FXML
     private ToggleGroup tabToggle;
     @FXML
@@ -30,15 +32,19 @@ public class AirportController {
     }
 
     public void initialize() {
-        displayTab();
-        tabToggle.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> displayTab());
+        departureToggle.getStyleClass().remove("radio-button");
+        arrivalToggle.getStyleClass().remove("radio-button");
+        displayTab(tabToggle.getSelectedToggle());
+        tabToggle.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> displayTab(oldValue));
     }
 
-    private void displayTab() {
+    private void displayTab(Toggle oldValue) {
         if (departureToggle.isSelected()) {
             tabContent.getChildren().setAll(departureView);
-        } else {
+        } else if (arrivalToggle.isSelected()) {
             tabContent.getChildren().setAll(arrivalView);
+        } else {
+            tabToggle.selectToggle(oldValue);
         }
     }
 }
