@@ -1,0 +1,11 @@
+.tab-toggle {
+    -fx-background-color: linear-gradient(to top, #b6bdc2, #E2EFF6 70%);
+    -fx-background-insets: 0;
+    -fx-background-radius: 10 10 0 0;
+}
+.tab-toggle:selected {
+    -fx-background-color: #E2EFF6;
+}
+.tab-header {
+    -fx-background-color: #31568C;
+}

@@ -13,11 +13,12 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("airport-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+        stage.setTitle("Plane Ahead!");
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
 
         ColorPicker bodyPicker = new ColorPicker(Color.BEIGE);
         ColorPicker wingPicker = new ColorPicker(Color.LIGHTGRAY);
@@ -34,8 +35,8 @@ public class HelloApplication extends Application {
         plane.setWindowFill(windowPicker.getValue());
         windowPicker.setOnAction(e -> plane.setWindowFill(windowPicker.getValue()));
 
-        VBox root = (VBox) scene.getRoot();
-        root.getChildren().addAll(plane, bodyPicker, wingPicker, windowPicker);
+//        VBox root = (VBox) scene.getRoot();
+//        root.getChildren().addAll(plane, bodyPicker, wingPicker, windowPicker);
 
         plane.setScaleX(0.2);
         plane.setScaleY(0.2);

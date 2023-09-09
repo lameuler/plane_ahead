@@ -1,0 +1,37 @@
+.root {
+    -fx-background-color: #A1C1F1;
+}
+.scroll-background {
+    -fx-background-color: #DCEAFF;
+    -fx-background-radius: 15;
+    -fx-padding: 0 5 0 5;
+}
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.scroll-pane, .scroll-pane > * {
+    -fx-background-color: transparent;
+}
+.increment-button, .increment-button *, .decrement-button, .decrement-button * {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+.scroll-bar {
+    -fx-pref-width: 12;
+    -fx-padding: 10 0 10 0;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #A1C1F1;
+    -fx-background-radius: 10;
+}
+.add-button {
+    -fx-background-color: #EAF1FD;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20;
+}
