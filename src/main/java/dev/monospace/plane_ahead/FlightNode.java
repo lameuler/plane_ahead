@@ -29,7 +29,7 @@ public class FlightNode extends BorderPane {
         this.setRight(plane);
         this.setPrefHeight(60);
 
-        this.setStyle("-fx-background-color: #EAF1FD; -fx-background-radius: 10; -fx-padding: 5 10 5 10;");
+        this.setStyle("-fx-background-color: #EAF1FD; -fx-background-radius: 10; -fx-padding: 5 10 5 10; -fx-cursor: hand;");
         this.setEffect(new DropShadow(12,0,0,Color.rgb(0,0,0,0.1)));
     }
 
