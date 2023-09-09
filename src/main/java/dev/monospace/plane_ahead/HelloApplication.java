@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("airport-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+//        Font.loadFont(getClass().getResource("RobotoSlab.ttf").toExternalForm(), 16);
+        Font.loadFont(getClass().getResource("fonts/RobotoSlab-Medium.ttf").toExternalForm(), 16);
+        scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         stage.setTitle("Plane Ahead!");
         stage.setScene(scene);
         stage.show();
