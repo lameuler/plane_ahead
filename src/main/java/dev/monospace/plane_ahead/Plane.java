@@ -19,25 +19,29 @@ public class Plane extends Pane {
         windows = new SVGPath();
         windows.setContent("M826 411.5c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S826 451.554 826 432.5v-21Zm-129 0c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S697 451.554 697 432.5v-21Zm-128 0c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S569 451.554 569 432.5v-21Zm-128-1c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v20c0 19.054-15.45 34.5-34.5 34.5S441 449.554 441 430.5v-20Zm-129 2c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v20c0 19.054-15.45 34.5-34.5 34.5S312 451.554 312 432.5v-20Zm729.009-34.5H1176.6l26.718 30.423c7.496 10.95 13.513 22.528 18.186 34.577l6.496 24h-186.991C1016.151 467 996 447.076 996 422.5c0-24.577 20.151-44.5 45.009-44.5Z");
         this.getChildren().addAll(body, wings, windows);
+    }
 
-        this.setOnMousePressed(e -> {
-            drag = new DragInfo();
-            drag.mouseX = e.getSceneX();
-            drag.mouseY = e.getSceneY();
-            drag.planeX = getTranslateX();
-            drag.planeY = getTranslateY();
-            System.out.println(drag);
-        });
-        this.setOnMouseDragged(e -> {
-            if (drag != null) {
-                double x = e.getSceneX() - drag.mouseX + drag.planeX;
-                double y = e.getSceneY() - drag.mouseY + drag.planeY;
-                setTranslateX(x);
-                setTranslateY(y);
-//                System.out.println("x: "+x+", "+e.getSceneX()+", y: "+y+", "+e.getSceneY());
-            }
-        });
-        this.setOnMouseReleased(e -> drag = null);
+    public Plane(boolean draggable) {
+        this();
+        if (draggable) {
+            this.setOnMousePressed(e -> {
+                drag = new DragInfo();
+                drag.mouseX = e.getSceneX();
+                drag.mouseY = e.getSceneY();
+                drag.planeX = getTranslateX();
+                drag.planeY = getTranslateY();
+                System.out.println(drag);
+            });
+            this.setOnMouseDragged(e -> {
+                if (drag != null) {
+                    double x = e.getSceneX() - drag.mouseX + drag.planeX;
+                    double y = e.getSceneY() - drag.mouseY + drag.planeY;
+                    setTranslateX(x);
+                    setTranslateY(y);
+                }
+            });
+            this.setOnMouseReleased(e -> drag = null);
+        }
     }
 
     public void setBodyFill(Color color) {
