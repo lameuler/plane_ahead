@@ -1,7 +1,6 @@
 package dev.monospace.plane_ahead;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -26,8 +25,8 @@ public class AirportController {
     private final Node arrivalView;
 
     public AirportController() throws IOException {
-        departureView = FXMLLoader.load(AirportController.class.getResource("queue-view.fxml"));
-        arrivalView = FXMLLoader.load(AirportController.class.getResource("queue-view.fxml"));
+        departureView = QueueController.load();
+        arrivalView = QueueController.load();
     }
 
     public void initialize() {
