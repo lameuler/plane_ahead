@@ -35,9 +35,9 @@ public class Plane extends Pane {
             this.setOnMouseDragged(e -> {
                 if (drag != null) {
                     double x = e.getSceneX() - drag.mouseX + drag.planeX;
-                    double y = e.getSceneY() - drag.mouseY + drag.planeY;
+//                    double y = e.getSceneY() - drag.mouseY + drag.planeY;
                     setTranslateX(x);
-                    setTranslateY(y);
+//                    setTranslateY(y);
                 }
             });
             this.setOnMouseReleased(e -> drag = null);
