@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Plane Ahead!");
         stage.setScene(scene);
         stage.show();
+        stage.setFullScreen(true);
         stage.setResizable(false);
 
         ColorPicker bodyPicker = new ColorPicker(Color.BEIGE);
