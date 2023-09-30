@@ -21,6 +21,8 @@ public class AirportController {
     private ToggleGroup tabToggle;
     @FXML
     private VBox tabContent;
+    @FXML
+    private Button exitButton;
 
     private final Node departureView;
     private final Node arrivalView;
@@ -36,6 +38,7 @@ public class AirportController {
         displayTab(tabToggle.getSelectedToggle());
         tabToggle.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> displayTab(oldValue));
         displayPlanes();
+        exitButton.setOnAction(e -> System.exit(0));
     }
 
     private void displayTab(Toggle oldValue) {
