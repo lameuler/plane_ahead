@@ -2,9 +2,10 @@ package dev.monospace.plane_ahead;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -38,7 +39,18 @@ public class AirportController {
         displayTab(tabToggle.getSelectedToggle());
         tabToggle.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> displayTab(oldValue));
         displayPlanes();
+
         exitButton.setOnAction(e -> System.exit(0));
+
+        Button button = (Button) departureView.lookup("#button");
+        button.setOnAction(e -> {
+            try {
+                Scene scene = button.getScene();
+                scene.setRoot((Parent) new NewDepartureController().load());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     private void displayTab(Toggle oldValue) {

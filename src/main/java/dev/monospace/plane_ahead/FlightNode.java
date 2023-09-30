@@ -1,12 +1,15 @@
 package dev.monospace.plane_ahead;
 
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+
+import java.io.IOException;
 
 public class FlightNode extends BorderPane {
 
@@ -45,9 +48,19 @@ public class FlightNode extends BorderPane {
                     if (this.getStyleClass().contains("flight-node-selected")) {
                         this.getStyleClass().remove("flight-node-selected");
                         button.setText("+ New");
+                        button.setOnAction(e -> {
+                            try {
+                                scene.setRoot((Parent) new NewDepartureController().load());
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
                     } else {
                         this.getStyleClass().add("flight-node-selected");
                         button.setText("🕶 View");
+                        button.setOnAction(e -> {
+
+                        });
                     }
                 } else {
                     node.getStyleClass().remove("flight-node-selected");
