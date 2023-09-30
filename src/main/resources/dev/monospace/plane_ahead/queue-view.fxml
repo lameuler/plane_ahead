@@ -24,7 +24,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <Button alignment="CENTER" mnemonicParsing="false" styleClass="add-button" text="+ New">
+      <Button fx:id="button" alignment="CENTER" mnemonicParsing="false" styleClass="add-button" text="+ New">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
