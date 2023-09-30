@@ -62,8 +62,8 @@ public class AirportController {
         arrivalPlane.setWindowFill(windowPicker.getValue());
         windowPicker.setOnAction(e -> arrivalPlane.setWindowFill(windowPicker.getValue()));
 
-        arrivalPlane.setScaleX(-0.15);
-        arrivalPlane.setScaleY(0.15);
+        arrivalPlane.setScaleX(-0.12);
+        arrivalPlane.setScaleY(0.12);
 
         arrivalPlane.setLayoutX(850);
         arrivalPlane.setLayoutY(350);
@@ -77,11 +77,11 @@ public class AirportController {
         departurePlane.setWingFill(Color.HOTPINK);
         departurePlane.setWindowFill(Color.WHITE);
 
-        departurePlane.setScaleX(0.15);
-        departurePlane.setScaleY(0.15);
+        departurePlane.setScaleX(0.12);
+        departurePlane.setScaleY(0.12);
 
         departurePlane.setLayoutX(100);
-        departurePlane.setLayoutY(60);
+        departurePlane.setLayoutY(75);
 
         planeLayer.getChildren().add(departurePlane);
     }

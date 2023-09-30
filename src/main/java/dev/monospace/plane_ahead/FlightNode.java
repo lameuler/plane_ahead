@@ -13,22 +13,24 @@ public class FlightNode extends BorderPane {
     public FlightNode(Flight flight) {
         this.flight = flight;
         Label label = new Label();
-        label.setText(flight.getAirlineCode()+"\n"+flight.getFlightNumber());
-        label.setMinHeight(60);
+        label.setText(flight.getAirlineCode() + " " + flight.getFlightNumber());
+        label.setMinHeight(100);
+        label.setMinWidth(150);
+        label.setAlignment(javafx.geometry.Pos.CENTER);
         Plane plane = new Plane();
         plane.setBodyFill(flight.getBodyColor());
         plane.setWingFill(flight.getWingColor());
         plane.setWindowFill(flight.getWindowColor());
-        plane.setMaxSize(80, 60);
-        plane.setScaleX(0.064655);
-        plane.setScaleY(0.064655);
-        plane.setTranslateX(-37.333);
-        plane.setTranslateY(-28);
+        plane.setMaxSize(133, 100);
+        plane.setScaleX(0.08);
+        plane.setScaleY(0.08);
+        plane.setTranslateX(-40);
+        plane.setTranslateY(-35);
         plane.setEffect(new DropShadow(100,0,0,Color.rgb(0,0,0,0.2)));
 //        BorderPane.setAlignment(plane, Pos.CENTER);
         this.setLeft(label);
         this.setRight(plane);
-        this.setPrefHeight(60);
+        this.setPrefHeight(100);
 
         this.getStyleClass().add("flight-node");
         // when selected, add a drop shadow

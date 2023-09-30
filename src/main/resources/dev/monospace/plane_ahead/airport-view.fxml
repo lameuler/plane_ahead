@@ -40,12 +40,9 @@
       </AnchorPane>
       <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
-            <HBox alignment="CENTER" styleClass="tab-header" VBox.vgrow="NEVER">
-               <padding>
-                  <Insets left="2.0" right="2.0" top="8.0" />
-               </padding>
+            <HBox alignment="BOTTOM_CENTER" styleClass="tab-header" VBox.vgrow="NEVER">
                <children>
-                  <RadioButton fx:id="departureToggle" mnemonicParsing="false" selected="true" text="Departure" HBox.hgrow="ALWAYS">
+                  <RadioButton fx:id="departureToggle" minHeight="50.0" mnemonicParsing="false" selected="true" text="Departure" HBox.hgrow="ALWAYS">
                      <toggleGroup>
                         <ToggleGroup fx:id="tabToggle" />
                      </toggleGroup>
@@ -57,7 +54,7 @@
                         <Insets />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="arrivalToggle" mnemonicParsing="false" text="Arrival" toggleGroup="$tabToggle" HBox.hgrow="ALWAYS">
+                  <RadioButton fx:id="arrivalToggle" minHeight="50.0" mnemonicParsing="false" text="Arrival" toggleGroup="$tabToggle" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="toggle-button" />
                         <String fx:value="tab-toggle" />
@@ -67,6 +64,9 @@
                      </HBox.margin>
                   </RadioButton>
                </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </padding>
             </HBox>
             <VBox fx:id="tabContent" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
          </children>

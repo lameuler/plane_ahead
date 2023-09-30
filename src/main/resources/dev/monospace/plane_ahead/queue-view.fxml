@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10.0" styleClass="root" stylesheets="@queue-style.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.QueueController">
+<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0" styleClass="root" stylesheets="@queue-style.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.QueueController">
    <children>
-      <Label prefWidth="300.0" text="Flight Schedule" />
+      <Label graphicTextGap="0.0" prefWidth="300.0" text="Flight Schedule" />
       <AnchorPane prefWidth="300.0" styleClass="scroll-background" VBox.vgrow="ALWAYS">
          <children>
             <ScrollPane fitToWidth="true" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
