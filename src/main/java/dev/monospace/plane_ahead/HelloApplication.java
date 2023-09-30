@@ -22,27 +22,6 @@ public class HelloApplication extends Application {
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
-
-        ColorPicker bodyPicker = new ColorPicker(Color.BEIGE);
-        ColorPicker wingPicker = new ColorPicker(Color.LIGHTGRAY);
-        ColorPicker windowPicker = new ColorPicker(Color.BLACK);
-
-        Plane plane = new Plane();
-
-        plane.setBodyFill(bodyPicker.getValue());
-        bodyPicker.setOnAction(e -> plane.setBodyFill(bodyPicker.getValue()));
-
-        plane.setWingFill(wingPicker.getValue());
-        wingPicker.setOnAction(e -> plane.setWingFill(wingPicker.getValue()));
-
-        plane.setWindowFill(windowPicker.getValue());
-        windowPicker.setOnAction(e -> plane.setWindowFill(windowPicker.getValue()));
-
-//        VBox root = (VBox) scene.getRoot();
-//        root.getChildren().addAll(plane, bodyPicker, wingPicker, windowPicker);
-
-        plane.setScaleX(0.2);
-        plane.setScaleY(0.2);
     }
 
     public static void main(String[] args) {

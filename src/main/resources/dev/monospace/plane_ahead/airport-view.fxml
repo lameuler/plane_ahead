@@ -12,9 +12,33 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="720.0" prefWidth="1280.0" stylesheets="@airport-style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.AirportController">
+<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="720.0" prefWidth="1280.0" stylesheets="@airport-style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.AirportController">
    <children>
-      <VBox prefHeight="720.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+    <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="875.0">
+         <children>
+            <StackPane prefHeight="720.0" prefWidth="895.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="720.0" fitWidth="963.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                     <image>
+                        <Image url="@background.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane fx:id="planeLayer">
+                     <children>
+                        <Pane fx:id="departurePlane" layoutY="190.0" prefHeight="150.0" prefWidth="200.0" />
+                        <Pane fx:id="arrivalPlane" layoutX="670.0" layoutY="460.0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView disable="true" fitHeight="720.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                     <image>
+                        <Image url="@foreground.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+      <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" styleClass="tab-header" VBox.vgrow="NEVER">
                <padding>
@@ -47,29 +71,5 @@
             <VBox fx:id="tabContent" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="875.0">
-         <children>
-            <StackPane prefHeight="720.0" prefWidth="895.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="720.0" fitWidth="963.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-                     <image>
-                        <Image url="@background.png" />
-                     </image>
-                  </ImageView>
-                  <AnchorPane fx:id="planeLayer">
-                     <children>
-                        <Pane fx:id="departurePlane" layoutY="190.0" prefHeight="150.0" prefWidth="200.0" />
-                        <Pane fx:id="arrivalPlane" layoutX="670.0" layoutY="460.0" />
-                     </children>
-                  </AnchorPane>
-                  <ImageView disable="true" fitHeight="720.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                     <image>
-                        <Image url="@foreground.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </StackPane>
-         </children>
-      </AnchorPane>
    </children>
 </HBox>
