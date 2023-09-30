@@ -53,7 +53,7 @@ public class AirportController {
         ColorPicker wingPicker = new ColorPicker(Color.LIGHTGRAY);
         ColorPicker windowPicker = new ColorPicker(Color.BLACK);
 
-        Plane arrivalPlane = new Plane(true);
+        Plane arrivalPlane = new Plane(true, true);
 
         arrivalPlane.setBodyFill(bodyPicker.getValue());
         bodyPicker.setOnAction(e -> arrivalPlane.setBodyFill(bodyPicker.getValue()));
@@ -65,13 +65,13 @@ public class AirportController {
         arrivalPlane.setScaleX(-0.15);
         arrivalPlane.setScaleY(0.15);
 
-        arrivalPlane.setLayoutX(670);
+        arrivalPlane.setLayoutX(850);
         arrivalPlane.setLayoutY(350);
 
         planeLayer.getChildren().add(arrivalPlane);
 
 
-        Plane departurePlane = new Plane(true);
+        Plane departurePlane = new Plane(true, false);
 
         departurePlane.setBodyFill(Color.LIGHTSKYBLUE);
         departurePlane.setWingFill(Color.HOTPINK);
@@ -80,7 +80,7 @@ public class AirportController {
         departurePlane.setScaleX(0.15);
         departurePlane.setScaleY(0.15);
 
-        departurePlane.setLayoutX(0);
+        departurePlane.setLayoutX(100);
         departurePlane.setLayoutY(60);
 
         planeLayer.getChildren().add(departurePlane);

@@ -1,8 +1,11 @@
 package dev.monospace.plane_ahead;
 
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.util.Duration;
 
 public class Plane extends Pane {
     private final SVGPath body;
@@ -21,8 +24,11 @@ public class Plane extends Pane {
         this.getChildren().addAll(body, wings, windows);
     }
 
-    public Plane(boolean draggable) {
+    public Plane(boolean draggable, boolean arrival) {
         this();
+        if (arrival) {
+            this.setTranslateY(-1 * Math.pow(Math.E, (double) 5 / 2));
+        }
         if (draggable) {
             this.setOnMousePressed(e -> {
                 drag = new DragInfo();
@@ -30,17 +36,60 @@ public class Plane extends Pane {
                 drag.mouseY = e.getSceneY();
                 drag.planeX = getTranslateX();
                 drag.planeY = getTranslateY();
-//                System.out.println(drag);
+                System.out.println(drag);
             });
             this.setOnMouseDragged(e -> {
                 if (drag != null) {
                     double x = e.getSceneX() - drag.mouseX + drag.planeX;
-//                    double y = e.getSceneY() - drag.mouseY + drag.planeY;
+                    double y;
+                    if (arrival) {
+                        y = -1 * Math.pow(Math.E, (x + 500) / 200);
+                    }
+                    else {
+                        y = -1 * Math.pow(Math.E, x / 200);
+                    }
                     setTranslateX(x);
-//                    setTranslateY(y);
+                    setTranslateY(y);
                 }
             });
-            this.setOnMouseReleased(e -> drag = null);
+            this.setOnMouseReleased(e -> {
+                drag = null;
+
+                if (arrival) {
+                    if (getTranslateX() > -500) {
+                        this.setDisable(true);
+                        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), this);
+                        tt.setToX(0);
+                        tt.setToY(-1 * Math.pow(Math.E, (double) 5 / 2));
+                        tt.play();
+                        tt.setOnFinished(event -> this.setDisable(false));
+                    } else {
+                        this.setDisable(true);
+                        TranslateTransition tt = new TranslateTransition(Duration.millis(500), this);
+                        tt.setToX(-1000);
+                        tt.setToY(0);
+                        tt.play();
+//                        tt.setOnFinished(event -> ((Pane) this.getParent()).getChildren().remove(this));
+                    }
+                }
+                else {
+                    if (getTranslateX() < 500) {
+                        this.setDisable(true);
+                        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), this);
+                        tt.setToX(0);
+                        tt.setToY(0);
+                        tt.play();
+                        tt.setOnFinished(event -> this.setDisable(false));
+                    } else {
+                        this.setDisable(true);
+                        TranslateTransition tt = new TranslateTransition(Duration.millis(500), this);
+                        tt.setToX(1000);
+                        tt.setToY(-1 * Math.pow(Math.E, 5));
+                        tt.play();
+//                        tt.setOnFinished(event -> ((Pane) this.getParent()).getChildren().remove(this));
+                    }
+                }
+            });
         }
     }
 
