@@ -3,7 +3,6 @@ package dev.monospace.plane_ahead;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -97,8 +96,8 @@ public class AirportController {
         departurePlane.setScaleX(0.12);
         departurePlane.setScaleY(0.12);
 
-        departurePlane.setLayoutX(100);
-        departurePlane.setLayoutY(75);
+        departurePlane.setLayoutX(0);
+        departurePlane.setLayoutY(0);
 
         planeLayer.getChildren().add(departurePlane);
     }

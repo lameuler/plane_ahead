@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
+import java.util.Random;
+
 public class Plane extends Pane {
     private final SVGPath body;
     private final SVGPath wings;
@@ -22,13 +24,10 @@ public class Plane extends Pane {
         wings.setContent("M439.184 13.425C463.11.575 531.418-6.144 548.281 7.571c24.483 11.712 145.334 173.18 245.625 302.697l-197.089.336c-11.238-17.038-22.968-34.438-34.753-51.863l-6.243-9.228C486.097 146.483 417.13 44.638 439.184 13.425ZM113 445h68v131c0 37.555-30.44 68-68 68H45V513c0-37.555 30.44-68 68-68Zm225.79 469.79c-37.71-49.32 156.91-265.225 239.99-403.245 27.18-22.034 39.66-32.18 119.38-33.545 89.06 1.984 106.16 4.407 122.84 33.545C701.94 648.025 498.49 905.66 463.81 920.98c-19.33 14.52-97.6 7.41-125.02-6.19Z");
         windows = new SVGPath();
         windows.setContent("M826 411.5c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S826 451.554 826 432.5v-21Zm-129 0c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S697 451.554 697 432.5v-21Zm-128 0c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v21c0 19.054-15.45 34.5-34.5 34.5S569 451.554 569 432.5v-21Zm-128-1c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v20c0 19.054-15.45 34.5-34.5 34.5S441 449.554 441 430.5v-20Zm-129 2c0-19.054 15.45-34.5 34.5-34.5s34.5 15.446 34.5 34.5v20c0 19.054-15.45 34.5-34.5 34.5S312 451.554 312 432.5v-20Zm729.009-34.5H1176.6l26.718 30.423c7.496 10.95 13.513 22.528 18.186 34.577l6.496 24h-186.991C1016.151 467 996 447.076 996 422.5c0-24.577 20.151-44.5 45.009-44.5Z");
+        setBodyFill(Color.rgb(226, 239, 246));
+        setWingFill(Color.rgb(220, 233, 240));
+        setWindowFill(Color.rgb(49, 86, 140));
         this.getChildren().addAll(body, wings, windows);
-        this.setOnMouseEntered(e -> {
-            getScene().setCursor(Cursor.HAND);
-        });
-        this.setOnMouseExited(e -> {
-            getScene().setCursor(Cursor.DEFAULT);
-        });
     }
 
     public Plane(boolean draggable, boolean arrival) {
@@ -37,6 +36,12 @@ public class Plane extends Pane {
             this.setTranslateY(-1 * Math.pow(Math.E, (double) 5 / 2));
         }
         if (draggable) {
+            this.setOnMouseEntered(e -> {
+                getScene().setCursor(Cursor.HAND);
+            });
+            this.setOnMouseExited(e -> {
+                getScene().setCursor(Cursor.DEFAULT);
+            });
             this.setOnMousePressed(e -> {
                 drag = new DragInfo();
                 drag.mouseX = e.getSceneX();
@@ -110,6 +115,15 @@ public class Plane extends Pane {
 
     public void setWindowFill(Color color) {
         windows.setFill(color);
+    }
+
+    public void randomise() {
+        Random random = new Random();
+        double h = random.nextDouble(360);
+        double s = random.nextDouble(0.5);
+        double b = random.nextDouble(0.9, 0.98);
+        this.setBodyFill(Color.hsb(h, s, b));
+        this.setWingFill(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
     }
 
     static class DragInfo {
