@@ -69,18 +69,9 @@ public class AirportController {
     }
 
     private void displayPlanes() {
-        ColorPicker bodyPicker = new ColorPicker(Color.BEIGE);
-        ColorPicker wingPicker = new ColorPicker(Color.LIGHTGRAY);
-        ColorPicker windowPicker = new ColorPicker(Color.BLACK);
 
         Plane arrivalPlane = new Plane(true, true);
-
-        arrivalPlane.setBodyFill(bodyPicker.getValue());
-        bodyPicker.setOnAction(e -> arrivalPlane.setBodyFill(bodyPicker.getValue()));
-        arrivalPlane.setWingFill(wingPicker.getValue());
-        wingPicker.setOnAction(e -> arrivalPlane.setWingFill(wingPicker.getValue()));
-        arrivalPlane.setWindowFill(windowPicker.getValue());
-        windowPicker.setOnAction(e -> arrivalPlane.setWindowFill(windowPicker.getValue()));
+        arrivalPlane.randomise();
 
         arrivalPlane.setScaleX(-0.12);
         arrivalPlane.setScaleY(0.12);
@@ -92,16 +83,13 @@ public class AirportController {
 
 
         Plane departurePlane = new Plane(true, false);
-
-        departurePlane.setBodyFill(Color.LIGHTSKYBLUE);
-        departurePlane.setWingFill(Color.HOTPINK);
-        departurePlane.setWindowFill(Color.WHITE);
+        departurePlane.randomise();
 
         departurePlane.setScaleX(0.12);
         departurePlane.setScaleY(0.12);
 
-        departurePlane.setLayoutX(0);
-        departurePlane.setLayoutY(0);
+        departurePlane.setLayoutX(125);
+        departurePlane.setLayoutY(75);
 
         planeLayer.getChildren().add(departurePlane);
     }
