@@ -32,8 +32,4 @@ public class QueueController {
         loader.<QueueController>getController(); // TODO: bind to PriorityQueue
         return node;
     }
-
-    public Button getButton() {
-        return button;
-    }
 }

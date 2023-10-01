@@ -1,5 +1,6 @@
 package dev.monospace.plane_ahead;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,7 +51,8 @@ public class FlightNode extends BorderPane {
                         button.setText("+ New");
                         button.setOnAction(e -> {
                             try {
-                                scene.setRoot((Parent) new NewDepartureController().load());
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
+                                scene.setRoot(fxmlLoader.load());
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
