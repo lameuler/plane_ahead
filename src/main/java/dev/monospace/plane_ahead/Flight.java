@@ -18,17 +18,19 @@ public class Flight {
     private int tier;
     private int emergency;
     private double fuel;
+    private boolean arrival;
 
     private Color bodyColor;
     private Color wingColor;
     private Color windowColor;
 
-    public Flight(String airlineCode, int flightNumber) {
+    public Flight(String airlineCode, int flightNumber, boolean arrival) {
         this.airlineCode = airlineCode;
         this.flightNumber = flightNumber;
         this.tier = 0;
         this.emergency = 0;
         this.fuel = 0;
+        this.arrival = arrival;
         this.bodyColor = Color.rgb(226, 239, 246);
         this.wingColor = Color.rgb(220, 233, 240);
         this.windowColor = Color.rgb(49, 86, 140);
@@ -62,15 +64,43 @@ public class Flight {
         this.wingColor = wingColor;
     }
 
-    public void setWindowColor(Color windowColor) {
-        this.windowColor = windowColor;
+    public int getTier() {
+        return tier;
     }
 
-    public static Flight random() {
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    public int getEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(int emergency) {
+        this.emergency = emergency;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+
+    public boolean isArrival() {
+        return arrival;
+    }
+
+    public void setArrival(boolean arrival) {
+        this.arrival = arrival;
+    }
+
+    public static Flight random(boolean arrival) {
         Random random = new Random();
         String code = "" + (char) random.nextInt('A','Z'+1) + (char) random.nextInt('A','Z'+1);
         int number = random.nextInt(1000, 9999);
-        Flight flight = new Flight(code, number);
+        Flight flight = new Flight(code, number, arrival);
         double h = random.nextDouble(360);
         double s = random.nextDouble(0.5);
         double b = random.nextDouble(0.9, 0.98);

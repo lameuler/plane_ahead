@@ -30,8 +30,8 @@ public class AirportController {
     private final Node arrivalView;
 
     public AirportController() throws IOException {
-        departureView = QueueController.load();
-        arrivalView = QueueController.load();
+        departureView = QueueController.load(false);
+        arrivalView = QueueController.load(true);
     }
 
     public void initialize() {
