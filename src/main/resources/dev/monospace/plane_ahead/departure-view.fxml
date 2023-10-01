@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@new-departure-style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.DepartureController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@departure-style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.monospace.plane_ahead.DepartureController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@new_departure.png" />
+            <Image url="@departure.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -31,12 +31,13 @@
                   </Label>
                   <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="TOP_RIGHT" spacing="10.0">
+                        <HBox alignment="TOP_RIGHT" spacing="20.0">
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </padding>
                            <children>
-                              <Button fx:id="homeButton" mnemonicParsing="false" styleClass="home-button" />
+                              <Button fx:id="homeButton" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="home-button" />
+                              <Button fx:id="colourButton" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="colour-button" />
                            </children>
                         </HBox>
                      </children>
@@ -56,19 +57,21 @@
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
                                     <Label text="Flight number:" />
-                                    <TextField alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="ABC 1234" styleClass="name-field" />
+                                    <TextField fx:id="numberField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="ABC 1234" styleClass="name-field" />
                                  </children>
                               </HBox>
                               <Label text="Choose priorities:" />
                               <HBox prefHeight="50.0" />
                               <Pane nodeOrientation="RIGHT_TO_LEFT">
                                  <children>
-                                    <HBox alignment="BOTTOM_RIGHT" spacing="10.0">
+                                    <HBox alignment="BOTTOM_RIGHT" spacing="20.0">
                                        <padding>
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                        <children>
                                           <Button fx:id="doneButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="done-button" />
+                                          <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="edit-button" visible="false" />
+                                          <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="delete-button" visible="false" />
                                        </children>
                                     </HBox>
                                  </children>

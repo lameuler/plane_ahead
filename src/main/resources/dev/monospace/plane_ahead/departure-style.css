@@ -21,6 +21,23 @@
     -fx-background-color: #9099D8;
 }
 
+.colour-button {
+    -fx-background-radius: 35;
+    -fx-background-color: #A1C1F1;
+    -fx-background-image: url('colour.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.colour-button:hover {
+    -fx-background-color: #8AB2EE;
+}
+
 .done-button {
     -fx-background-radius: 35;
     -fx-background-color: #A8D8C7;
@@ -36,6 +53,40 @@
 
 .done-button:hover {
     -fx-background-color: #9AD2BE;
+}
+
+.edit-button {
+    -fx-background-radius: 35;
+    -fx-background-color: #F4CDA6;
+    -fx-background-image: url('edit.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.edit-button:hover {
+    -fx-background-color: #F0BC88;
+}
+
+.delete-button {
+    -fx-background-radius: 35;
+    -fx-background-color: #ED8F8F;
+    -fx-background-image: url('delete.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.delete-button:hover {
+    -fx-background-color: #EB8181;
 }
 
 .title {

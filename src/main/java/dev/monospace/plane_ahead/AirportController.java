@@ -47,7 +47,7 @@ public class AirportController {
         button.setOnAction(e -> {
             try {
                 Scene scene = button.getScene();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("departure-view.fxml"));
                 Parent parent = fxmlLoader.load();
                 DepartureController controller = fxmlLoader.getController();
                 controller.setFlight(null);

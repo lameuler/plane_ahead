@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -12,7 +13,17 @@ public class DepartureController {
     @FXML
     Button homeButton;
     @FXML
+    Button colourButton;
+    @FXML
     StackPane planeLayer;
+    @FXML
+    TextField numberField;
+    @FXML
+    Button doneButton;
+    @FXML
+    Button editButton;
+    @FXML
+    Button deleteButton;
 
     private Flight flight;
 
@@ -43,6 +54,15 @@ public class DepartureController {
             plane.setWingFill(this.flight.getWingColor());
             plane.setWindowFill(this.flight.getWindowColor());
 
+            numberField.setText(this.flight.getAirlineCode() + " " + this.flight.getFlightNumber());
+            numberField.setDisable(true);
+
+            colourButton.setDisable(true);
+
+            doneButton.setDisable(true);
+
+            editButton.setVisible(true);
+            deleteButton.setVisible(true);
         }
         plane.setScaleX(0.31);
         plane.setScaleY(0.31);
