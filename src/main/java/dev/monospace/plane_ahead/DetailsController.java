@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,6 +33,8 @@ public class DetailsController {
     Button deleteButton;
     @FXML
     ImageView background;
+    @FXML
+    Label title;
 
     private Flight flight;
     private Plane plane = new Plane();
@@ -65,6 +68,7 @@ public class DetailsController {
 
     public void setArrival() {
         background.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("arrival.png"))));
+        title.setText("Landing...");
     }
 
     private void displayPlane() {
