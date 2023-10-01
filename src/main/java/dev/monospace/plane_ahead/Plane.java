@@ -117,6 +117,29 @@ public class Plane extends Pane {
         windows.setFill(color);
     }
 
+    public void setTheme(Color color) {
+        if (color.equals(Color.rgb(255, 230, 128))) {
+            this.setBodyFill(Color.rgb(244, 235, 170));
+            this.setWingFill(Color.rgb(240, 219, 128));
+            this.setWindowFill(Color.rgb(240, 219, 128));
+        }
+        else {
+            Random random = new Random();
+            this.setBodyFill(color);
+
+            double h = color.getHue();
+            double s = color.getSaturation();
+            double b = color.getBrightness();
+            this.setWingFill(Color.hsb(h, s * random.nextDouble(0.5, 0.98), b * random.nextDouble(0.5, 0.98)));
+
+            if (b < 0.8) {
+                this.setWindowFill(Color.rgb(226, 239, 246));
+            } else {
+                this.setWindowFill(Color.rgb(49, 86, 140));
+            }
+        }
+    }
+
     public void randomise() {
         Random random = new Random();
         double h = random.nextDouble(360);

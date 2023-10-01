@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
@@ -14,6 +15,8 @@ public class DepartureController {
     Button homeButton;
     @FXML
     Button colourButton;
+    @FXML
+    ColorPicker colorPicker;
     @FXML
     StackPane planeLayer;
     @FXML
@@ -26,6 +29,7 @@ public class DepartureController {
     Button deleteButton;
 
     private Flight flight;
+    private Plane plane = new Plane();
 
     public void initialize() {
         homeButton.setOnAction(event -> {
@@ -37,6 +41,16 @@ public class DepartureController {
                 throw new RuntimeException(e);
             }
         });
+
+        colourButton.setOnAction(event -> {
+            colorPicker.show();
+        });
+
+        colorPicker.setOnAction(event -> {
+            plane.setTheme(colorPicker.getValue());
+        });
+
+        colorPicker.setVisible(false);
     }
 
     public void setFlight(Flight flight) {
@@ -45,7 +59,6 @@ public class DepartureController {
     }
 
     private void displayPlane() {
-        Plane plane = new Plane();
         if (this.flight == null) {
             plane.randomise();
         }
