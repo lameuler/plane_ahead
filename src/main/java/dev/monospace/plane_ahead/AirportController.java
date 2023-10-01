@@ -3,6 +3,7 @@ package dev.monospace.plane_ahead;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -45,9 +46,12 @@ public class AirportController {
         Button button = (Button) departureView.lookup("#button");
         button.setOnAction(e -> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
                 Scene scene = button.getScene();
-                scene.setRoot(fxmlLoader.load());
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
+                Parent parent = fxmlLoader.load();
+                DepartureController controller = fxmlLoader.getController();
+                controller.setFlight(null);
+                scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

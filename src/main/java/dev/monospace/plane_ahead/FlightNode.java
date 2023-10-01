@@ -52,7 +52,10 @@ public class FlightNode extends BorderPane {
                         button.setOnAction(e -> {
                             try {
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
-                                scene.setRoot(fxmlLoader.load());
+                                Parent parent = fxmlLoader.load();
+                                DepartureController controller = fxmlLoader.getController();
+                                controller.setFlight(null);
+                                scene.setRoot(parent);
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -61,7 +64,15 @@ public class FlightNode extends BorderPane {
                         this.getStyleClass().add("flight-node-selected");
                         button.setText("🕶 View");
                         button.setOnAction(e -> {
-
+                            try {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-departure-view.fxml"));
+                                Parent parent = fxmlLoader.load();
+                                DepartureController controller = fxmlLoader.getController();
+                                controller.setFlight(this.getFlight());
+                                scene.setRoot(parent);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         });
                     }
                 } else {

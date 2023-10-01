@@ -4,16 +4,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-public class NewDepartureController {
+public class DepartureController {
     @FXML
     Button homeButton;
     @FXML
     StackPane planeLayer;
+
+    private Flight flight;
 
     public void initialize() {
         homeButton.setOnAction(event -> {
@@ -25,15 +26,28 @@ public class NewDepartureController {
                 throw new RuntimeException(e);
             }
         });
+    }
 
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+        displayPlane();
+    }
+
+    private void displayPlane() {
         Plane plane = new Plane();
-        plane.randomise();
+        if (this.flight == null) {
+            plane.randomise();
+        }
+        else {
+            plane.setBodyFill(this.flight.getBodyColor());
+            plane.setWingFill(this.flight.getWingColor());
+            plane.setWindowFill(this.flight.getWindowColor());
 
+        }
         plane.setScaleX(0.31);
         plane.setScaleY(0.31);
         plane.setTranslateX(8);
         plane.setTranslateY(-100);
-
         planeLayer.getChildren().add(plane);
     }
 }
