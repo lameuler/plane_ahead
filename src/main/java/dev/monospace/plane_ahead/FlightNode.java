@@ -49,41 +49,37 @@ public class FlightNode extends BorderPane {
                     if (this.getStyleClass().contains("flight-node-selected")) {
                         this.getStyleClass().remove("flight-node-selected");
                         button.setText("+ New");
-                        if (this.getFlight().isArrival()) {
-
-                        }
-                        else {
-                            button.setOnAction(e -> {
-                                try {
-                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("departure-view.fxml"));
-                                    Parent parent = fxmlLoader.load();
-                                    DepartureController controller = fxmlLoader.getController();
-                                    controller.setFlight(null);
-                                    scene.setRoot(parent);
-                                } catch (IOException ex) {
-                                    throw new RuntimeException(ex);
+                        button.setOnAction(e -> {
+                            try {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
+                                Parent parent = fxmlLoader.load();
+                                DetailsController controller = fxmlLoader.getController();
+                                controller.setFlight(null);
+                                if (this.getFlight().isArrival()) {
+                                    controller.setArrival();
                                 }
-                            });
-                        }
+                                scene.setRoot(parent);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
                     } else {
                         this.getStyleClass().add("flight-node-selected");
                         button.setText("🕶 View");
-                        if (this.getFlight().isArrival()) {
-
-                        }
-                        else {
-                            button.setOnAction(e -> {
-                                try {
-                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("departure-view.fxml"));
-                                    Parent parent = fxmlLoader.load();
-                                    DepartureController controller = fxmlLoader.getController();
-                                    controller.setFlight(this.getFlight());
-                                    scene.setRoot(parent);
-                                } catch (IOException ex) {
-                                    throw new RuntimeException(ex);
+                        button.setOnAction(e -> {
+                            try {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
+                                Parent parent = fxmlLoader.load();
+                                DetailsController controller = fxmlLoader.getController();
+                                controller.setFlight(this.getFlight());
+                                if (this.getFlight().isArrival()) {
+                                    controller.setArrival();
                                 }
-                            });
-                        }
+                                scene.setRoot(parent);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
                     }
                 } else {
                     node.getStyleClass().remove("flight-node-selected");

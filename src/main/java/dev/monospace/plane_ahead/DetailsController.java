@@ -6,11 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.Objects;
 
-public class DepartureController {
+public class DetailsController {
     @FXML
     Button homeButton;
     @FXML
@@ -27,6 +30,8 @@ public class DepartureController {
     Button editButton;
     @FXML
     Button deleteButton;
+    @FXML
+    ImageView background;
 
     private Flight flight;
     private Plane plane = new Plane();
@@ -56,6 +61,10 @@ public class DepartureController {
     public void setFlight(Flight flight) {
         this.flight = flight;
         displayPlane();
+    }
+
+    public void setArrival() {
+        background.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("arrival.png"))));
     }
 
     private void displayPlane() {

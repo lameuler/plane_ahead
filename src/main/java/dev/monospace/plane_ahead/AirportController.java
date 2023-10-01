@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -43,14 +42,29 @@ public class AirportController {
 
         exitButton.setOnAction(e -> System.exit(0));
 
-        Button button = (Button) departureView.lookup("#button");
-        button.setOnAction(e -> {
+        Button departureButton = (Button) departureView.lookup("#button");
+        departureButton.setOnAction(e -> {
             try {
-                Scene scene = button.getScene();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("departure-view.fxml"));
+                Scene scene = departureButton.getScene();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
                 Parent parent = fxmlLoader.load();
-                DepartureController controller = fxmlLoader.getController();
+                DetailsController controller = fxmlLoader.getController();
                 controller.setFlight(null);
+                scene.setRoot(parent);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        Button arrivalButton = (Button) arrivalView.lookup("#button");
+        arrivalButton.setOnAction(e -> {
+            try {
+                Scene scene = arrivalButton.getScene();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
+                Parent parent = fxmlLoader.load();
+                DetailsController controller = fxmlLoader.getController();
+                controller.setFlight(null);
+                controller.setArrival();
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
