@@ -1,6 +1,7 @@
 package dev.monospace.plane_ahead;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -177,7 +178,14 @@ public class AirportController {
                     tt.play();
                     tt.setOnFinished(event -> {
                         arrivalFlight = arrivalQueue.dequeue();
-                        readyArrival();
+                        new Thread(() -> {
+                            try {
+                                Thread.sleep((long) (Math.random() * 5000 + 5000));
+                            } catch (InterruptedException ex) {
+                                ex.printStackTrace();
+                            }
+                            Platform.runLater(this::readyArrival);
+                        }).start();
                     });
                 }
             });
@@ -258,7 +266,14 @@ public class AirportController {
                     tt.play();
                     tt.setOnFinished(event -> {
                         departureFlight = departureQueue.dequeue();
-                        readyDeparture();
+                        new Thread(() -> {
+                            try {
+                                Thread.sleep((long) (Math.random() * 5000 + 5000));
+                            } catch (InterruptedException ex) {
+                                ex.printStackTrace();
+                            }
+                            Platform.runLater(this::readyDeparture);
+                        }).start();
                     });
                 }
             });
