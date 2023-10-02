@@ -90,9 +90,15 @@ public class DetailsController {
             editButton.setVisible(true);
             deleteButton.setVisible(true);
         }
-        plane.setScaleX(0.31);
+        if (flight.isArrival()) {
+            plane.setScaleX(-0.31);
+            plane.setTranslateX(-8);
+        }
+        else {
+            plane.setScaleX(0.31);
+            plane.setTranslateX(8);
+        }
         plane.setScaleY(0.31);
-        plane.setTranslateX(8);
         plane.setTranslateY(-100);
         planeLayer.getChildren().add(plane);
     }
