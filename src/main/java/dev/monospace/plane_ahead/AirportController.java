@@ -62,7 +62,7 @@ public class AirportController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
                 Parent parent = fxmlLoader.load();
                 DetailsController controller = fxmlLoader.getController();
-                controller.setFlight(null);
+                controller.setFlight(Flight.random(false), true);
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -76,7 +76,7 @@ public class AirportController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
                 Parent parent = fxmlLoader.load();
                 DetailsController controller = fxmlLoader.getController();
-                controller.setFlight(null);
+                controller.setFlight(Flight.random(true), true);
                 controller.setArrival();
                 scene.setRoot(parent);
             } catch (IOException ex) {

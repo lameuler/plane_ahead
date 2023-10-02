@@ -140,14 +140,14 @@ public class Plane extends Pane {
         }
     }
 
-    public void randomise() {
-        Random random = new Random();
-        double h = random.nextDouble(360);
-        double s = random.nextDouble(0.5);
-        double b = random.nextDouble(0.9, 0.98);
-        this.setBodyFill(Color.hsb(h, s, b));
-        this.setWingFill(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
-    }
+//    public void randomise() {
+//        Random random = new Random();
+//        double h = random.nextDouble(360);
+//        double s = random.nextDouble(0.5);
+//        double b = random.nextDouble(0.9, 0.98);
+//        this.setBodyFill(Color.hsb(h, s, b));
+//        this.setWingFill(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
+//    }
 
     static class DragInfo {
         double mouseX, mouseY, planeX, planeY;

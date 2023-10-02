@@ -61,9 +61,9 @@ public class DetailsController {
         colorPicker.setVisible(false);
     }
 
-    public void setFlight(Flight flight) {
+    public void setFlight(Flight flight, Boolean newFlight) {
         this.flight = flight;
-        displayPlane();
+        displayPlane(newFlight);
     }
 
     public void setArrival() {
@@ -71,15 +71,12 @@ public class DetailsController {
         title.setText("Landing...");
     }
 
-    private void displayPlane() {
-        if (this.flight == null) {
-            plane.randomise();
-        }
-        else {
-            plane.setBodyFill(this.flight.getBodyColor());
-            plane.setWingFill(this.flight.getWingColor());
-            plane.setWindowFill(this.flight.getWindowColor());
+    private void displayPlane(boolean newFlight) {
+        plane.setBodyFill(this.flight.getBodyColor());
+        plane.setWingFill(this.flight.getWingColor());
+        plane.setWindowFill(this.flight.getWindowColor());
 
+        if (!newFlight) {
             numberField.setText(this.flight.getAirlineCode() + " " + this.flight.getFlightNumber());
             numberField.setDisable(true);
 

@@ -95,7 +95,7 @@ public class FlightNode extends BorderPane {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
                 Parent parent = fxmlLoader.load();
                 DetailsController controller = fxmlLoader.getController();
-                controller.setFlight(null);
+                controller.setFlight(Flight.random(this.getFlight().isArrival()), true);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
                 }
@@ -113,7 +113,7 @@ public class FlightNode extends BorderPane {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("details-view.fxml"));
                 Parent parent = fxmlLoader.load();
                 DetailsController controller = fxmlLoader.getController();
-                controller.setFlight(this.getFlight());
+                controller.setFlight(this.getFlight(), false);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
                 }
