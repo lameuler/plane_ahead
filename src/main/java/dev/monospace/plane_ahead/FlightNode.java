@@ -99,6 +99,7 @@ public class FlightNode extends BorderPane {
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
                 }
+                controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -117,6 +118,7 @@ public class FlightNode extends BorderPane {
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
                 }
+                controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

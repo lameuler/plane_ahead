@@ -106,6 +106,9 @@ public class Flight {
         double b = random.nextDouble(0.9, 0.98);
         flight.setBodyColor(Color.hsb(h, s, b));
         flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
+        flight.setTier(random.nextInt(0, 3));
+        flight.setEmergency(random.nextInt(0, 3));
+        flight.setFuel(random.nextDouble(0, 3));
         return flight;
     }
 
@@ -115,5 +118,9 @@ public class Flight {
         plane.setWingFill(this.getWingColor());
         plane.setWindowFill(this.getWindowColor());
         return plane;
+    }
+
+    public Integer getUrgency() {
+        return this.getTier() + this.getEmergency() + 3 - (int) this.getFuel();
     }
 }

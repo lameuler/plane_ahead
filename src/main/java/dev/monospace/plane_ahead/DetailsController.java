@@ -2,6 +2,8 @@ package dev.monospace.plane_ahead;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -39,15 +42,12 @@ public class DetailsController {
     private Flight flight;
     private Plane plane = new Plane();
 
+    private Parent root;
+
     public void initialize() {
         homeButton.setOnAction(event -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("airport-view.fxml"));
-                Scene scene = homeButton.getScene();
-                scene.setRoot(fxmlLoader.load());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Scene scene = homeButton.getScene();
+            scene.setRoot(root);
         });
 
         colourButton.setOnAction(event -> {
@@ -59,6 +59,10 @@ public class DetailsController {
         });
 
         colorPicker.setVisible(false);
+    }
+
+    public void setRoot(Parent root) {
+        this.root = root;
     }
 
     public void setFlight(Flight flight, Boolean newFlight) {

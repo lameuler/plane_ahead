@@ -16,7 +16,8 @@ public class QueueController {
     @FXML
     private VBox nextBox;
 
-    private ArrayList<Flight> flights = new ArrayList<>();
+    private PriorityQueue<Flight, Integer> flights = new PriorityQueue<>();
+    private ArrayList<Flight> scheduledFlights = new ArrayList<>();
     private Flight nextFlight;
     private static QueueController controller;
 
@@ -24,11 +25,20 @@ public class QueueController {
         Random random = new Random();
         for (int i = 0; i < random.nextInt(6, 15); i++) {
             Flight flight = Flight.random(arrival);
-            flights.add(flight);
+            flights.enqueue(flight, flight.getUrgency());
+            scheduledFlights.add(flight);
+        }
+        nextFlight = flights.dequeue();
+        nextBox.getChildren().add(new FlightNode(nextFlight));
+        scheduledFlights.remove(nextFlight);
+        displayScheduledFlights();
+    }
+
+    public void displayScheduledFlights() {
+        box.getChildren().clear();
+        for (Flight flight : scheduledFlights) {
             box.getChildren().add(new FlightNode(flight));
         }
-        nextFlight = Flight.random(arrival);
-        nextBox.getChildren().add(new FlightNode(nextFlight));
     }
 
     public static Node load() throws IOException {
@@ -38,16 +48,13 @@ public class QueueController {
         return node;
     }
 
-    public ArrayList<Flight> getFlights() {
+    public PriorityQueue<Flight, Integer> getFlights() {
         return flights;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
+    public void setFlights(PriorityQueue<Flight, Integer> flights) {
         this.flights = flights;
-        box.getChildren().clear();
-        for (Flight flight : flights) {
-            box.getChildren().add(new FlightNode(flight));
-        }
+        displayScheduledFlights();
     }
 
     public Flight getNextFlight() {

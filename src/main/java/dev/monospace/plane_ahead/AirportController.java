@@ -37,15 +37,16 @@ public class AirportController {
     private Flight arrivalFlight;
     private Flight departureFlight;
 
+    private static QueueController departureQueue = new QueueController();
+    private static QueueController arrivalQueue = new QueueController();
+
     public AirportController() throws IOException {
-        QueueController departureQueue = new QueueController();
-        departureView = departureQueue.load();
+        departureView = QueueController.load();
         departureQueue = departureQueue.getController();
         departureQueue.randomise(false);
         departureFlight = departureQueue.getNextFlight();
 
-        QueueController arrivalQueue = new QueueController();
-        arrivalView = arrivalQueue.load();
+        arrivalView = QueueController.load();
         arrivalQueue = arrivalQueue.getController();
         arrivalQueue.randomise(true);
         arrivalFlight = arrivalQueue.getNextFlight();
@@ -86,6 +87,7 @@ public class AirportController {
                 Parent parent = fxmlLoader.load();
                 DetailsController controller = fxmlLoader.getController();
                 controller.setFlight(Flight.random(false), true);
+                controller.setRoot(departureButton.getScene().getRoot());
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -101,6 +103,7 @@ public class AirportController {
                 DetailsController controller = fxmlLoader.getController();
                 controller.setFlight(Flight.random(true), true);
                 controller.setArrival();
+                controller.setRoot(arrivalButton.getScene().getRoot());
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
