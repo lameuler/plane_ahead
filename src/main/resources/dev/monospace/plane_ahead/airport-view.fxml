@@ -26,8 +26,8 @@
                   </ImageView>
                   <AnchorPane fx:id="planeLayer">
                      <children>
-                        <Pane fx:id="departurePlane" layoutY="190.0" prefHeight="150.0" prefWidth="200.0" />
-                        <Pane fx:id="arrivalPlane" layoutX="670.0" layoutY="460.0" />
+                        <Button fx:id="departureButton" mnemonicParsing="false" styleClass="departure-button" />
+                        <Button fx:id="arrivalButton" mnemonicParsing="false" styleClass="arrival-button" />
                      </children>
                   </AnchorPane>
                   <ImageView disable="true" fitHeight="720.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">

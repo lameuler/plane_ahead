@@ -22,6 +22,7 @@
 .tabs {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 50, 0, 0, 0);
 }
+
 .exit-button {
     -fx-background-radius: 35;
     -fx-background-color: #ED8F8F;
@@ -37,4 +38,38 @@
 
 .exit-button:hover {
     -fx-background-color: #EB8181;
+}
+
+.arrival-button {
+    -fx-background-radius: 35;
+    -fx-background-color: #A8D8C7;
+    -fx-background-image: url('arrival_arrow.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.arrival-button:hover {
+    -fx-background-color: #9AD2BE;
+}
+
+.departure-button {
+    -fx-background-radius: 35;
+    -fx-background-color: #A8D8C7;
+    -fx-background-image: url('departure_arrow.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.departure-button:hover {
+    -fx-background-color: #9AD2BE;
 }
