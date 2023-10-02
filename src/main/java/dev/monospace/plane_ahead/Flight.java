@@ -108,4 +108,12 @@ public class Flight {
         flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
         return flight;
     }
+
+    public Plane toPlane(boolean draggable, boolean arrival) {
+        Plane plane = new Plane(draggable, arrival);
+        plane.setBodyFill(this.getBodyColor());
+        plane.setWingFill(this.getWingColor());
+        plane.setWindowFill(this.getWindowColor());
+        return plane;
+    }
 }

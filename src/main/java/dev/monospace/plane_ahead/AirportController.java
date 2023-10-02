@@ -28,9 +28,21 @@ public class AirportController {
     private final Node departureView;
     private final Node arrivalView;
 
+    private Flight arrivalFlight;
+    private Flight departureFlight;
+
     public AirportController() throws IOException {
-        departureView = QueueController.load(false);
-        arrivalView = QueueController.load(true);
+        QueueController departureQueue = new QueueController();
+        departureView = departureQueue.load();
+        departureQueue = departureQueue.getController();
+        departureQueue.randomise(false);
+        departureFlight = departureQueue.getNextFlight();
+
+        QueueController arrivalQueue = new QueueController();
+        arrivalView = arrivalQueue.load();
+        arrivalQueue = arrivalQueue.getController();
+        arrivalQueue.randomise(true);
+        arrivalFlight = arrivalQueue.getNextFlight();
     }
 
     public void initialize() {
@@ -38,9 +50,10 @@ public class AirportController {
         arrivalToggle.getStyleClass().remove("radio-button");
         displayTab(tabToggle.getSelectedToggle());
         tabToggle.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> displayTab(oldValue));
-        displayPlanes();
 
         exitButton.setOnAction(e -> System.exit(0));
+
+        displayPlanes();
 
         Button departureButton = (Button) departureView.lookup("#button");
         departureButton.setOnAction(e -> {
@@ -84,8 +97,7 @@ public class AirportController {
 
     private void displayPlanes() {
 
-        Plane arrivalPlane = new Plane(true, true);
-        arrivalPlane.randomise();
+        Plane arrivalPlane = arrivalFlight.toPlane(true, true);
 
         arrivalPlane.setScaleX(-0.12);
         arrivalPlane.setScaleY(0.12);
@@ -96,8 +108,7 @@ public class AirportController {
         planeLayer.getChildren().add(arrivalPlane);
 
 
-        Plane departurePlane = new Plane(true, false);
-        departurePlane.randomise();
+        Plane departurePlane = departureFlight.toPlane(true, false);
 
         departurePlane.setScaleX(0.12);
         departurePlane.setScaleY(0.12);
@@ -106,5 +117,23 @@ public class AirportController {
         departurePlane.setLayoutY(75);
 
         planeLayer.getChildren().add(departurePlane);
+    }
+
+    public Flight getArrivalFlight() {
+        return arrivalFlight;
+    }
+
+    public void setArrivalFlight(Flight arrivalFlight) {
+        this.arrivalFlight = arrivalFlight;
+        displayPlanes();
+    }
+
+    public Flight getDepartureFlight() {
+        return departureFlight;
+    }
+
+    public void setDepartureFlight(Flight departureFlight) {
+        this.departureFlight = departureFlight;
+        displayPlanes();
     }
 }
