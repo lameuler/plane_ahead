@@ -3,6 +3,7 @@ package dev.monospace.plane_ahead;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class PlaneAheadApplication extends Application {
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
     }
 
     public static void main(String[] args) {
