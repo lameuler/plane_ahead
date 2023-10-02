@@ -112,8 +112,8 @@ public class Flight {
         return flight;
     }
 
-    public Plane toPlane(boolean draggable, boolean arrival) {
-        Plane plane = new Plane(draggable, arrival);
+    public Plane toPlane() {
+        Plane plane = new Plane();
         plane.setBodyFill(this.getBodyColor());
         plane.setWingFill(this.getWingColor());
         plane.setWindowFill(this.getWindowColor());

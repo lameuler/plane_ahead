@@ -3,7 +3,6 @@ package dev.monospace.plane_ahead;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -16,8 +15,8 @@ public class QueueController {
     @FXML
     private VBox nextBox;
 
-    private PriorityQueue<Flight, Integer> flights = new PriorityQueue<>();
-    private ArrayList<Flight> scheduledFlights = new ArrayList<>();
+    private final PriorityQueue<Flight, Integer> flights = new PriorityQueue<>();
+    private final ArrayList<Flight> scheduledFlights = new ArrayList<>();
     private Flight nextFlight;
     private static QueueController controller;
 
@@ -28,10 +27,7 @@ public class QueueController {
             flights.enqueue(flight, flight.getUrgency());
             scheduledFlights.add(flight);
         }
-        nextFlight = flights.dequeue();
-        nextBox.getChildren().add(new FlightNode(nextFlight));
-        scheduledFlights.remove(nextFlight);
-        displayScheduledFlights();
+        dequeue();
     }
 
     public void displayScheduledFlights() {
@@ -48,13 +44,12 @@ public class QueueController {
         return node;
     }
 
-    public PriorityQueue<Flight, Integer> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(PriorityQueue<Flight, Integer> flights) {
-        this.flights = flights;
+    public Flight dequeue() {
+        Flight flight = flights.dequeue();
+        scheduledFlights.remove(flight);
         displayScheduledFlights();
+        setNextFlight(flight);
+        return flight;
     }
 
     public Flight getNextFlight() {

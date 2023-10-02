@@ -3,6 +3,7 @@ package dev.monospace.plane_ahead;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -63,9 +64,6 @@ public class AirportController {
         arrivalButton.setVisible(false);
         departureButton.setVisible(false);
 
-        arrivalButton.setOnAction(e -> displayArrival(arrivalFlight.toPlane(true, true)));
-        departureButton.setOnAction(e -> displayDeparture(departureFlight.toPlane(true, false)));
-
         displayDeparture(null);
         displayArrival(null);
 
@@ -124,17 +122,66 @@ public class AirportController {
     private void readyArrival() {
         arrivalButton.setDisable(false);
         arrivalButton.setVisible(true);
+        arrivalButton.setOnAction(e -> displayArrival(arrivalFlight.toPlane()));
     }
 
     private void displayArrival(Plane plane) {
         Plane arrivalPlane;
 
         if (plane == null) {
-            arrivalPlane = Flight.random(true).toPlane(true, true);
+            arrivalPlane = Flight.random(true).toPlane();
             arrivalPlane.setVisible(false);
         }
         else {
-            arrivalPlane = arrivalFlight.toPlane(true, true);
+            arrivalPlane = arrivalFlight.toPlane();
+
+            arrivalPlane.setTranslateY(-1 * Math.pow(Math.E, (double) 5 / 2));
+
+            DragInfo drag = new DragInfo();
+
+            arrivalPlane.setOnMouseEntered(e -> {
+                arrivalPlane.getScene().setCursor(Cursor.HAND);
+            });
+
+            arrivalPlane.setOnMouseExited(e -> {
+                arrivalPlane.getScene().setCursor(Cursor.DEFAULT);
+            });
+
+            arrivalPlane.setOnMousePressed(e -> {
+                drag.mouseX = e.getSceneX();
+                drag.mouseY = e.getSceneY();
+                drag.planeX = arrivalPlane.getTranslateX();
+                drag.planeY = arrivalPlane.getTranslateY();
+            });
+
+            arrivalPlane.setOnMouseDragged(e -> {
+                double x = e.getSceneX() - drag.mouseX + drag.planeX;
+                double y = -1 * Math.pow(Math.E, (x + 500) / 200);
+                arrivalPlane.setTranslateX(x);
+                arrivalPlane.setTranslateY(y);
+            });
+
+            arrivalPlane.setOnMouseReleased(e -> {
+                if (arrivalPlane.getTranslateX() > -500) {
+                    arrivalPlane.setDisable(true);
+                    TranslateTransition tt = new TranslateTransition(Duration.seconds(1), arrivalPlane);
+                    tt.setToX(0);
+                    tt.setToY(-1 * Math.pow(Math.E, (double) 5 / 2));
+                    tt.play();
+                    tt.setOnFinished(event -> arrivalPlane.setDisable(false));
+                } else {
+                    arrivalPlane.setDisable(true);
+                    TranslateTransition tt = new TranslateTransition(Duration.millis(500), arrivalPlane);
+                    tt.setToX(-1000);
+                    tt.setToY(0);
+                    tt.play();
+                    tt.setOnFinished(event -> {
+                        arrivalFlight = arrivalQueue.dequeue();
+                        readyArrival();
+                    });
+                }
+            });
+
             planeLayer.getChildren().remove(3);
             arrivalButton.setDisable(true);
             arrivalButton.setVisible(false);
@@ -158,17 +205,64 @@ public class AirportController {
     private void readyDeparture() {
         departureButton.setDisable(false);
         departureButton.setVisible(true);
+        departureButton.setOnAction(e -> displayDeparture(departureFlight.toPlane()));
     }
 
     private void displayDeparture(Plane plane) {
         Plane departurePlane;
 
         if (plane == null) {
-            departurePlane = Flight.random(false).toPlane(true, false);
+            departurePlane = Flight.random(false).toPlane();
             departurePlane.setVisible(false);
         }
         else {
-            departurePlane = departureFlight.toPlane(true, false);
+            departurePlane = departureFlight.toPlane();
+
+            DragInfo drag = new DragInfo();
+
+            departurePlane.setOnMouseEntered(e -> {
+                departurePlane.getScene().setCursor(Cursor.HAND);
+            });
+
+            departurePlane.setOnMouseExited(e -> {
+                departurePlane.getScene().setCursor(Cursor.DEFAULT);
+            });
+
+            departurePlane.setOnMousePressed(e -> {
+                drag.mouseX = e.getSceneX();
+                drag.mouseY = e.getSceneY();
+                drag.planeX = departurePlane.getTranslateX();
+                drag.planeY = departurePlane.getTranslateY();
+            });
+
+            departurePlane.setOnMouseDragged(e -> {
+                double x = e.getSceneX() - drag.mouseX + drag.planeX;
+                double y = -1 * Math.pow(Math.E, x / 200);
+                departurePlane.setTranslateX(x);
+                departurePlane.setTranslateY(y);
+            });
+
+            departurePlane.setOnMouseReleased(e -> {
+                if (departurePlane.getTranslateX() < 500) {
+                    departurePlane.setDisable(true);
+                    TranslateTransition tt = new TranslateTransition(Duration.seconds(1), departurePlane);
+                    tt.setToX(0);
+                    tt.setToY(0);
+                    tt.play();
+                    tt.setOnFinished(event -> departurePlane.setDisable(false));
+                } else {
+                    departurePlane.setDisable(true);
+                    TranslateTransition tt = new TranslateTransition(Duration.millis(500), departurePlane);
+                    tt.setToX(1000);
+                    tt.setToY(-1 * Math.pow(Math.E, 5));
+                    tt.play();
+                    tt.setOnFinished(event -> {
+                        departureFlight = departureQueue.dequeue();
+                        readyDeparture();
+                    });
+                }
+            });
+
             planeLayer.getChildren().remove(2);
             departureButton.setDisable(true);
             departureButton.setVisible(false);
@@ -205,5 +299,19 @@ public class AirportController {
     public void setDepartureFlight(Flight departureFlight) {
         this.departureFlight = departureFlight;
         readyDeparture();
+    }
+
+    static class DragInfo {
+        double mouseX, mouseY, planeX, planeY;
+
+        @Override
+        public String toString() {
+            return "DragInfo{" +
+                    "mouseX=" + mouseX +
+                    ", mouseY=" + mouseY +
+                    ", planeX=" + planeX +
+                    ", planeY=" + planeY +
+                    '}';
+        }
     }
 }

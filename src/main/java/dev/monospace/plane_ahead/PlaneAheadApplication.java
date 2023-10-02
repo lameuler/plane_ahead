@@ -15,7 +15,6 @@ public class PlaneAheadApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(PlaneAheadApplication.class.getResource("airport-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 1280, 720);
-        AirportController controller = fxmlLoader.getController();
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         stage.setTitle("Plane Ahead!");
         stage.setScene(scene);
