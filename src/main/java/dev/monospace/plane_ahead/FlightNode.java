@@ -6,16 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class FlightNode extends BorderPane {
 
-    private Flight flight;
+    private final Flight flight;
 
     public FlightNode(Flight flight) {
         this.flight = flight;
@@ -32,14 +34,13 @@ public class FlightNode extends BorderPane {
         if (flight.isArrival()) {
             plane.setScaleX(-0.08);
             plane.setTranslateX(40);
-        }
-        else {
+        } else {
             plane.setScaleX(0.08);
             plane.setTranslateX(-40);
         }
         plane.setScaleY(0.08);
         plane.setTranslateY(-35);
-        plane.setEffect(new DropShadow(100,0,0,Color.rgb(0,0,0,0.2)));
+        plane.setEffect(new DropShadow(100, 0, 0, Color.rgb(0, 0, 0, 0.2)));
 //        BorderPane.setAlignment(plane, Pos.CENTER);
         this.setLeft(label);
         this.setRight(plane);
@@ -63,8 +64,7 @@ public class FlightNode extends BorderPane {
                     this.getStyleClass().add("flight-node-selected");
                     setView(scene, button);
                 }
-            }
-            else {
+            } else {
                 ((VBox) scene.lookup("#nextBox")).getChildrenUnmodifiable().get(0).getStyleClass().remove("flight-node-selected");
                 for (Node node : this.getParent().getChildrenUnmodifiable()) {
                     if (node == this) {
@@ -81,6 +81,11 @@ public class FlightNode extends BorderPane {
                 }
             }
         });
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.setText("Urgency: " + flight.getUrgency());
+        tooltip.setShowDelay(Duration.millis(400));
+        Tooltip.install(this, tooltip);
     }
 
     public Flight getFlight() {

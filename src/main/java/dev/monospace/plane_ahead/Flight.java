@@ -8,12 +8,12 @@ public class Flight {
     /**
      * Two character airline designator
      */
-    private String airlineCode;
+    private final String airlineCode;
 
     /**
      * Four digit flight number
      */
-    private int flightNumber;
+    private final int flightNumber;
 
     private int tier;
     private int emergency;
@@ -22,7 +22,7 @@ public class Flight {
 
     private Color bodyColor;
     private Color wingColor;
-    private Color windowColor;
+    private final Color windowColor;
 
     public Flight(String airlineCode, int flightNumber, boolean arrival) {
         this.airlineCode = airlineCode;
@@ -98,14 +98,14 @@ public class Flight {
 
     public static Flight random(boolean arrival) {
         Random random = new Random();
-        String code = "" + (char) random.nextInt('A','Z'+1) + (char) random.nextInt('A','Z'+1);
+        String code = String.valueOf((char) random.nextInt('A', 'Z' + 1)) + (char) random.nextInt('A', 'Z' + 1);
         int number = random.nextInt(1000, 9999);
         Flight flight = new Flight(code, number, arrival);
         double h = random.nextDouble(360);
         double s = random.nextDouble(0.5);
         double b = random.nextDouble(0.9, 0.98);
         flight.setBodyColor(Color.hsb(h, s, b));
-        flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b)*random.nextDouble(1, 1.5)));
+        flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
         flight.setTier(random.nextInt(0, 3));
         flight.setEmergency(random.nextInt(0, 3));
         flight.setFuel(random.nextDouble(0, 3));

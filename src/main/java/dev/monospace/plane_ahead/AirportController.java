@@ -8,7 +8,10 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -132,8 +135,7 @@ public class AirportController {
         if (plane == null) {
             arrivalPlane = Flight.random(true).toPlane();
             arrivalPlane.setVisible(false);
-        }
-        else {
+        } else {
             arrivalPlane = arrivalFlight.toPlane();
 
             arrivalPlane.setTranslateY(-1 * Math.pow(Math.E, (double) 5 / 2));
@@ -222,8 +224,7 @@ public class AirportController {
         if (plane == null) {
             departurePlane = Flight.random(false).toPlane();
             departurePlane.setVisible(false);
-        }
-        else {
+        } else {
             departurePlane = departureFlight.toPlane();
 
             DragInfo drag = new DragInfo();

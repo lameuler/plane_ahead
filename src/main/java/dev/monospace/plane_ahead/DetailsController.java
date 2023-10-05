@@ -3,13 +3,12 @@ package dev.monospace.plane_ahead;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+
 import java.util.Objects;
 
 public class DetailsController {
@@ -35,7 +34,7 @@ public class DetailsController {
     Label title;
 
     private Flight flight;
-    private Plane plane = new Plane();
+    private final Plane plane = new Plane();
 
     private Parent root;
 
@@ -85,12 +84,18 @@ public class DetailsController {
 
             editButton.setVisible(true);
             deleteButton.setVisible(true);
+
+            // TODO: Implement edit and delete functionality
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText("Coming soon!");
+            tooltip.setShowDelay(Duration.millis(400));
+            editButton.setTooltip(tooltip);
+            deleteButton.setTooltip(tooltip);
         }
         if (flight.isArrival()) {
             plane.setScaleX(-0.31);
             plane.setTranslateX(-8);
-        }
-        else {
+        } else {
             plane.setScaleX(0.31);
             plane.setTranslateX(8);
         }

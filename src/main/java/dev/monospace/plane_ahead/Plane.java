@@ -3,6 +3,7 @@ package dev.monospace.plane_ahead;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+
 import java.util.Random;
 
 public class Plane extends Pane {
@@ -40,8 +41,7 @@ public class Plane extends Pane {
             this.setBodyFill(Color.rgb(244, 235, 170));
             this.setWingFill(Color.rgb(240, 219, 128));
             this.setWindowFill(Color.rgb(240, 219, 128));
-        }
-        else {
+        } else {
             Random random = new Random();
             this.setBodyFill(color);
 

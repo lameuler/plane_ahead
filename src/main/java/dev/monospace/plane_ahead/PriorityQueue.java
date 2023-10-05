@@ -17,11 +17,11 @@ public class PriorityQueue<T, S extends Comparable<? super S>> {
 
     public void enqueue(T item, S priority) {
         ensureCapacity();
-        Entry<T,S> entry = new Entry<>(item, priority);
+        Entry<T, S> entry = new Entry<>(item, priority);
         array[count] = entry;
         int curr = count;
         while (curr > 0) {
-            int parent = (curr-1)/2;
+            int parent = (curr - 1) / 2;
             if (entry.compareTo(get(parent)) > 0) {
                 // entry > parent
                 array[curr] = array[parent];
@@ -36,8 +36,8 @@ public class PriorityQueue<T, S extends Comparable<? super S>> {
         if (count == 0) {
             throw new RuntimeException();
         }
-        Entry<T,S> max = get(0);
-        Entry<T,S> last = get(--count);
+        Entry<T, S> max = get(0);
+        Entry<T, S> last = get(--count);
         array[count] = null;
         array[0] = last;
         int curr = 0;
@@ -67,19 +67,19 @@ public class PriorityQueue<T, S extends Comparable<? super S>> {
     }
 
     @SuppressWarnings("unchecked")
-    private Entry<T,S> get(int index) {
-        return (Entry<T,S>) array[index];
+    private Entry<T, S> get(int index) {
+        return (Entry<T, S>) array[index];
     }
 
     private void ensureCapacity() {
         if (count >= array.length) {
-            Object[] newArray = new Object[array.length*2];
+            Object[] newArray = new Object[array.length * 2];
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
         }
     }
 
-    public static class Entry<T, S extends Comparable<? super S>> implements Comparable<Entry<T,S>> {
+    public static class Entry<T, S extends Comparable<? super S>> implements Comparable<Entry<T, S>> {
         private final T item;
         private final S priority;
 
@@ -89,7 +89,7 @@ public class PriorityQueue<T, S extends Comparable<? super S>> {
         }
 
         @Override
-        public int compareTo(Entry<T,S> o) {
+        public int compareTo(Entry<T, S> o) {
             return this.priority.compareTo(o.priority);
         }
 
