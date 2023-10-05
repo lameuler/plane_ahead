@@ -90,6 +90,8 @@ public class AirportController {
                 DetailsController controller = fxmlLoader.getController();
                 controller.setFlight(Flight.random(false), true);
                 controller.setRoot(departureButton.getScene().getRoot());
+                controller.setDepartureQueue(departureQueue);
+                controller.setArrivalQueue(arrivalQueue);
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -106,6 +108,8 @@ public class AirportController {
                 controller.setFlight(Flight.random(true), true);
                 controller.setArrival();
                 controller.setRoot(arrivalButton.getScene().getRoot());
+                controller.setDepartureQueue(departureQueue);
+                controller.setArrivalQueue(arrivalQueue);
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -315,6 +319,14 @@ public class AirportController {
     public void setDepartureFlight(Flight departureFlight) {
         this.departureFlight = departureFlight;
         readyDeparture();
+    }
+
+    public void addFlight(Flight flight) {
+        if (flight.isArrival()) {
+            arrivalQueue.enqueue(flight);
+        } else {
+            departureQueue.enqueue(flight);
+        }
     }
 
     static class DragInfo {

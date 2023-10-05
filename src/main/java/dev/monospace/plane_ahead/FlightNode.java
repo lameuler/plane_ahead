@@ -18,9 +18,11 @@ import java.io.IOException;
 public class FlightNode extends BorderPane {
 
     private final Flight flight;
+    private QueueController queueController;
 
-    public FlightNode(Flight flight) {
+    public FlightNode(Flight flight, QueueController queueController) {
         this.flight = flight;
+        this.queueController = queueController;
         Label label = new Label();
         label.setText(flight.getAirlineCode() + " " + flight.getFlightNumber());
         label.setMinHeight(100);
@@ -103,6 +105,10 @@ public class FlightNode extends BorderPane {
                 controller.setFlight(Flight.random(this.getFlight().isArrival()), true);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
+                    controller.setArrivalQueue(queueController);
+                }
+                else {
+                    controller.setDepartureQueue(queueController);
                 }
                 controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);
@@ -122,6 +128,10 @@ public class FlightNode extends BorderPane {
                 controller.setFlight(this.getFlight(), false);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
+                    controller.setArrivalQueue(queueController);
+                }
+                else {
+                    controller.setDepartureQueue(queueController);
                 }
                 controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);

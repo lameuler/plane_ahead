@@ -22,14 +22,14 @@ public class Flight {
 
     private Color bodyColor;
     private Color wingColor;
-    private final Color windowColor;
+    private Color windowColor;
 
     public Flight(String airlineCode, int flightNumber, boolean arrival) {
         this.airlineCode = airlineCode;
         this.flightNumber = flightNumber;
         this.tier = 0;
         this.emergency = 0;
-        this.fuel = 0;
+        this.fuel = 3;
         this.arrival = arrival;
         this.bodyColor = Color.rgb(226, 239, 246);
         this.wingColor = Color.rgb(220, 233, 240);
@@ -62,6 +62,10 @@ public class Flight {
 
     public void setWingColor(Color wingColor) {
         this.wingColor = wingColor;
+    }
+
+    public void setWindowColor(Color windowColor) {
+         this.windowColor = windowColor;
     }
 
     public int getTier() {

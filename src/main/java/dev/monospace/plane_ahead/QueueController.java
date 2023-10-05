@@ -33,7 +33,7 @@ public class QueueController {
     public void displayScheduledFlights() {
         box.getChildren().clear();
         for (Flight flight : scheduledFlights) {
-            box.getChildren().add(new FlightNode(flight));
+            box.getChildren().add(new FlightNode(flight, this));
         }
     }
 
@@ -42,6 +42,12 @@ public class QueueController {
         Node node = loader.load();
         controller = loader.getController();
         return node;
+    }
+
+    public void enqueue(Flight flight) {
+        flights.enqueue(flight, flight.getUrgency());
+        scheduledFlights.add(flight);
+        displayScheduledFlights();
     }
 
     public Flight dequeue() {
@@ -59,7 +65,7 @@ public class QueueController {
     public void setNextFlight(Flight nextFlight) {
         this.nextFlight = nextFlight;
         nextBox.getChildren().clear();
-        nextBox.getChildren().add(new FlightNode(nextFlight));
+        nextBox.getChildren().add(new FlightNode(nextFlight, this));
     }
 
     public QueueController getController() {

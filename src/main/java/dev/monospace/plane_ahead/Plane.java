@@ -28,12 +28,24 @@ public class Plane extends Pane {
         body.setFill(color);
     }
 
+    public Color getBodyFill() {
+        return (Color) body.getFill();
+    }
+
     public void setWingFill(Color color) {
         wings.setFill(color);
     }
 
+    public Color getWingFill() {
+        return (Color) wings.getFill();
+    }
+
     public void setWindowFill(Color color) {
         windows.setFill(color);
+    }
+
+    public Color getWindowFill() {
+        return (Color) windows.getFill();
     }
 
     public void setTheme(Color color) {

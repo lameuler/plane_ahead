@@ -58,8 +58,14 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
+                                    <Label text="Airline code:" />
+                                    <TextField fx:id="codeField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="ABC" styleClass="name-field" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
                                     <Label text="Flight number:" />
-                                    <TextField fx:id="numberField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="ABC 1234" styleClass="name-field" />
+                                    <TextField fx:id="numberField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="1234" styleClass="name-field" />
                                  </children>
                               </HBox>
                               <Label text="Choose priorities:" />

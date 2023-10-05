@@ -21,6 +21,8 @@ public class DetailsController {
     @FXML
     StackPane planeLayer;
     @FXML
+    TextField codeField;
+    @FXML
     TextField numberField;
     @FXML
     Button doneButton;
@@ -37,6 +39,8 @@ public class DetailsController {
     private final Plane plane = new Plane();
 
     private Parent root;
+    private QueueController departureQueue;
+    private QueueController arrivalQueue;
 
     public void initialize() {
         homeButton.setOnAction(event -> {
@@ -53,6 +57,22 @@ public class DetailsController {
         });
 
         colorPicker.setVisible(false);
+
+        doneButton.setOnAction(event -> {
+            String airlineCode = codeField.getText();
+            int flightNumber = Integer.parseInt(numberField.getText());
+            Flight flight = new Flight(airlineCode, flightNumber, this.flight.isArrival());
+            flight.setBodyColor(plane.getBodyFill());
+            flight.setWingColor(plane.getWingFill());
+            flight.setWindowColor(plane.getWindowFill());
+            if (this.flight.isArrival()) {
+                arrivalQueue.enqueue(flight);
+            } else {
+                departureQueue.enqueue(flight);
+            }
+            Scene scene = doneButton.getScene();
+            scene.setRoot(root);
+        });
     }
 
     public void setRoot(Parent root) {
@@ -69,13 +89,23 @@ public class DetailsController {
         title.setText("Landing...");
     }
 
+    public void setDepartureQueue(QueueController departureQueue) {
+        this.departureQueue = departureQueue;
+    }
+
+    public void setArrivalQueue(QueueController arrivalQueue) {
+        this.arrivalQueue = arrivalQueue;
+    }
+
     private void displayPlane(boolean newFlight) {
         plane.setBodyFill(this.flight.getBodyColor());
         plane.setWingFill(this.flight.getWingColor());
         plane.setWindowFill(this.flight.getWindowColor());
 
         if (!newFlight) {
-            numberField.setText(this.flight.getAirlineCode() + " " + this.flight.getFlightNumber());
+            codeField.setText(this.flight.getAirlineCode());
+            codeField.setDisable(true);
+            numberField.setText(String.valueOf(this.flight.getFlightNumber()));
             numberField.setDisable(true);
 
             colourButton.setDisable(true);
