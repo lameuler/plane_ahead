@@ -17,7 +17,6 @@ public class Flight {
 
     private int tier;
     private int emergency;
-    private double fuel;
     private boolean arrival;
 
     private Color bodyColor;
@@ -29,7 +28,6 @@ public class Flight {
         this.flightNumber = flightNumber;
         this.tier = 0;
         this.emergency = 0;
-        this.fuel = 3;
         this.arrival = arrival;
         this.bodyColor = Color.rgb(226, 239, 246);
         this.wingColor = Color.rgb(220, 233, 240);
@@ -84,14 +82,6 @@ public class Flight {
         this.emergency = emergency;
     }
 
-    public double getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
-    }
-
     public boolean isArrival() {
         return arrival;
     }
@@ -110,9 +100,8 @@ public class Flight {
         double b = random.nextDouble(0.9, 0.98);
         flight.setBodyColor(Color.hsb(h, s, b));
         flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
-        flight.setTier(random.nextInt(0, 3));
-        flight.setEmergency(random.nextInt(0, 3));
-        flight.setFuel(random.nextDouble(0, 3));
+        flight.setTier(random.nextInt(0, 5));
+        flight.setEmergency(random.nextInt(0, 5));
         return flight;
     }
 
@@ -125,6 +114,6 @@ public class Flight {
     }
 
     public Integer getUrgency() {
-        return this.getTier() + this.getEmergency() + 3 - (int) this.getFuel();
+        return this.getTier() + this.getEmergency();
     }
 }

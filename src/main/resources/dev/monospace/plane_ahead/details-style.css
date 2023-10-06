@@ -38,6 +38,57 @@
     -fx-background-color: #8AB2EE;
 }
 
+.remove-button {
+    -fx-background-radius: 15;
+    -fx-background-color: #31568C;
+    -fx-background-image: url('remove.png');
+    -fx-background-size: 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.remove-button:hover {
+    -fx-background-color: #3F6EB3;
+}
+
+.priority-node {
+    -fx-pref-height: 40;
+    -fx-background-color: #EAF1FD;
+    -fx-background-radius: 20;
+    -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 12, 0, 0, 0);
+}
+
+.priority-node:hover {
+    -fx-background-color: #E0EAFC;
+}
+
+.add-button {
+    -fx-background-radius: 20;
+    -fx-background-color: #EAF1FD;
+    -fx-background-image: url('add.png');
+    -fx-background-size: 25;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
+}
+
+.add-button:hover {
+    -fx-background-color: #D9E5FB;
+}
+
 .done-button {
     -fx-background-radius: 35;
     -fx-background-color: #A8D8C7;
