@@ -9,7 +9,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -72,15 +71,7 @@
                               <Label text="Choose priorities:" />
                               <HBox fx:id="prioritiesBox" alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
-                                    <BorderPane styleClass="priority-node">
-                                       <left>
-                                          <Label minWidth="100.0" text="Tier III" BorderPane.alignment="CENTER" />
-                                       </left>
-                                       <right>
-                                          <Button mnemonicParsing="false" styleClass="remove-button" BorderPane.alignment="CENTER" />
-                                       </right>
-                                    </BorderPane>
-                                    <Button fx:id="colourButton1" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="add-button" />
+                                    <Button fx:id="addButton" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="add-button" />
                                  </children></HBox>
                               <Pane nodeOrientation="RIGHT_TO_LEFT">
                                  <children>

@@ -2,6 +2,7 @@ package dev.monospace.plane_ahead;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Flight {
@@ -15,8 +16,7 @@ public class Flight {
      */
     private final int flightNumber;
 
-    private int tier;
-    private int emergency;
+    private ArrayList<Priority> priorities = new ArrayList<>();
     private boolean arrival;
 
     private Color bodyColor;
@@ -26,8 +26,6 @@ public class Flight {
     public Flight(String airlineCode, int flightNumber, boolean arrival) {
         this.airlineCode = airlineCode;
         this.flightNumber = flightNumber;
-        this.tier = 0;
-        this.emergency = 0;
         this.arrival = arrival;
         this.bodyColor = Color.rgb(226, 239, 246);
         this.wingColor = Color.rgb(220, 233, 240);
@@ -66,20 +64,12 @@ public class Flight {
          this.windowColor = windowColor;
     }
 
-    public int getTier() {
-        return tier;
+    public ArrayList<Priority> getPriorities() {
+        return priorities;
     }
 
-    public void setTier(int tier) {
-        this.tier = tier;
-    }
-
-    public int getEmergency() {
-        return emergency;
-    }
-
-    public void setEmergency(int emergency) {
-        this.emergency = emergency;
+    public void addPriority(Priority priority) {
+        priorities.add(priority);
     }
 
     public boolean isArrival() {
@@ -100,8 +90,10 @@ public class Flight {
         double b = random.nextDouble(0.9, 0.98);
         flight.setBodyColor(Color.hsb(h, s, b));
         flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
-        flight.setTier(random.nextInt(0, 5));
-        flight.setEmergency(random.nextInt(0, 5));
+        int tier = random.nextInt(0, 3);
+        flight.addPriority(Priority.tierPriority(tier));
+        int fuel = random.nextInt(0, 3);
+        flight.addPriority(Priority.fuelPriority(fuel));
         return flight;
     }
 
@@ -114,6 +106,6 @@ public class Flight {
     }
 
     public Integer getUrgency() {
-        return this.getTier() + this.getEmergency();
+        return priorities.stream().map(Priority::urgency).reduce(0, Integer::sum);
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -25,6 +26,10 @@ public class DetailsController {
     TextField codeField;
     @FXML
     TextField numberField;
+    @FXML
+    HBox prioritiesBox;
+    @FXML
+    Button addButton;
     @FXML
     Button doneButton;
     @FXML
@@ -100,6 +105,9 @@ public class DetailsController {
 
     public void setFlight(Flight flight, Boolean newFlight) {
         this.flight = flight;
+        if (!newFlight) {
+            flight.getPriorities().forEach(priority -> prioritiesBox.getChildren().add(0, new PriorityNode(priority)));
+        }
         displayPlane(newFlight);
     }
 

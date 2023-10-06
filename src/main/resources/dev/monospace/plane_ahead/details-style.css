@@ -58,7 +58,6 @@
 }
 
 .priority-node {
-    -fx-pref-height: 40;
     -fx-background-color: #EAF1FD;
     -fx-background-radius: 20;
     -fx-padding: 5 10 5 10;

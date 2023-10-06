@@ -1,6 +1,7 @@
 package dev.monospace.plane_ahead;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,7 +28,7 @@ public class FlightNode extends BorderPane {
         label.setText(flight.getAirlineCode() + " " + flight.getFlightNumber());
         label.setMinHeight(100);
         label.setMinWidth(150);
-        label.setAlignment(javafx.geometry.Pos.CENTER);
+        label.setAlignment(Pos.CENTER);
         Plane plane = new Plane();
         plane.setBodyFill(flight.getBodyColor());
         plane.setWingFill(flight.getWingColor());
@@ -93,7 +94,6 @@ public class FlightNode extends BorderPane {
     public Flight getFlight() {
         return flight;
     }
-
 
     private void setNew(Scene scene, Button button) {
         button.setText("+ New");
