@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.util.Objects;
@@ -60,18 +61,36 @@ public class DetailsController {
 
         doneButton.setOnAction(event -> {
             String airlineCode = codeField.getText();
-            int flightNumber = Integer.parseInt(numberField.getText());
-            Flight flight = new Flight(airlineCode, flightNumber, this.flight.isArrival());
-            flight.setBodyColor(plane.getBodyFill());
-            flight.setWingColor(plane.getWingFill());
-            flight.setWindowColor(plane.getWindowFill());
-            if (this.flight.isArrival()) {
-                arrivalQueue.enqueue(flight);
-            } else {
-                departureQueue.enqueue(flight);
+            String flightNumberString = numberField.getText();
+
+            if (airlineCode.length() == 2 && flightNumberString.length() == 4 && flightNumberString.matches("[0-9]+")) {
+                int flightNumber = Integer.parseInt(flightNumberString);
+                Flight flight = new Flight(airlineCode.toUpperCase(), flightNumber, this.flight.isArrival());
+                flight.setBodyColor(plane.getBodyFill());
+                flight.setWingColor(plane.getWingFill());
+                flight.setWindowColor(plane.getWindowFill());
+                if (this.flight.isArrival()) {
+                    arrivalQueue.enqueue(flight);
+                } else {
+                    departureQueue.enqueue(flight);
+                }
+                Scene scene = doneButton.getScene();
+                scene.setRoot(root);
             }
-            Scene scene = doneButton.getScene();
-            scene.setRoot(root);
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.initStyle(StageStyle.UNDECORATED);
+                ImageView alertIcon = new ImageView(Objects.requireNonNull(getClass().getResource("error.png")).toExternalForm());
+                alertIcon.setFitHeight(100);
+                alertIcon.setFitWidth(100);
+                alert.setGraphic(alertIcon);
+                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("details-style.css")).toExternalForm());
+                alert.initOwner(doneButton.getScene().getWindow());
+                alert.setTitle("Invalid flight details");
+                alert.setHeaderText("Invalid flight details");
+                alert.setContentText("Please enter a valid airline code and flight number.");
+                alert.showAndWait();
+            }
         });
     }
 

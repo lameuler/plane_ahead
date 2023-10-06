@@ -128,3 +128,21 @@
 .scroll-bar .thumb:hover {
     -fx-background-color: #E0EAFC;
 }
+
+.dialog-pane {
+    -fx-background-color: #A1C1F1;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #E0EAFC;
+}
+
+.dialog-pane .button{
+    -fx-background-color: #EAF1FD;
+    -fx-background-insets: 0;
+    -fx-background-radius: 25;
+ }
+
+.dialog-pane .button:hover{
+    -fx-background-color: #E0EAFC;
+ }
