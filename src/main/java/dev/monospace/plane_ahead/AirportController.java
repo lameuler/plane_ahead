@@ -46,13 +46,13 @@ public class AirportController {
         departureView = QueueController.load();
         departureQueue = departureQueue.getController();
         departureQueue.setAirportController(this);
-        departureQueue.randomise(false, 1, 3);
+        departureQueue.randomise(false, 5, 16);
         departureFlight = departureQueue.getNextFlight();
 
         arrivalView = QueueController.load();
         arrivalQueue = arrivalQueue.getController();
         arrivalQueue.setAirportController(this);
-        arrivalQueue.randomise(true, 1, 3);
+        arrivalQueue.randomise(true, 5, 16);
         arrivalFlight = arrivalQueue.getNextFlight();
     }
 
