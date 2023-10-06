@@ -105,9 +105,6 @@ public class DetailsController {
 
     public void setFlight(Flight flight, Boolean newFlight) {
         this.flight = flight;
-        if (!newFlight) {
-            flight.getPriorities().forEach(priority -> prioritiesBox.getChildren().add(0, new PriorityNode(priority)));
-        }
         displayPlane(newFlight);
     }
 
@@ -135,10 +132,11 @@ public class DetailsController {
             numberField.setText(String.valueOf(this.flight.getFlightNumber()));
             numberField.setDisable(true);
 
+            flight.getPriorities().forEach(priority -> prioritiesBox.getChildren().add(0, new PriorityNode(priority, true)));
+
+            addButton.setDisable(true);
             colourButton.setDisable(true);
-
             doneButton.setDisable(true);
-
             editButton.setVisible(true);
             deleteButton.setVisible(true);
 

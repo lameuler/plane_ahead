@@ -92,8 +92,14 @@ public class Flight {
         flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
         int tier = random.nextInt(0, 3);
         flight.addPriority(Priority.tierPriority(tier));
-        int fuel = random.nextInt(0, 3);
-        flight.addPriority(Priority.fuelPriority(fuel));
+        if (arrival) {
+            int fuel = random.nextInt(0, 3);
+            flight.addPriority(Priority.fuelPriority(fuel));
+            flight.addPriority(Priority.randomArrivalMiscellaneous());
+        }
+        else {
+            flight.addPriority(Priority.randomDepartureMiscellaneous());
+        }
         return flight;
     }
 

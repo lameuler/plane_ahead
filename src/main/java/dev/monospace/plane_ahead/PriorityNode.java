@@ -11,7 +11,7 @@ import javafx.util.Duration;
 public class PriorityNode extends BorderPane {
     private final Priority priority;
 
-    public PriorityNode(Priority priority) {
+    public PriorityNode(Priority priority, boolean disable) {
         this.priority = priority;
 
         Label label = new Label();
@@ -34,6 +34,11 @@ public class PriorityNode extends BorderPane {
         tooltip.setText("Urgency: " + priority.urgency());
         tooltip.setShowDelay(Duration.millis(400));
         Tooltip.install(this, tooltip);
+
+        if (disable) {
+            button.setDisable(true);
+            this.setDisable(true);
+        }
     }
 
     public Priority getPriority() {
