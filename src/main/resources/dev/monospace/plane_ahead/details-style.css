@@ -88,6 +88,18 @@
     -fx-background-color: #D9E5FB;
 }
 
+.add-button .arrow {
+    -fx-background-color: transparent;
+}
+
+.add-button > .arrow-button {
+   -fx-padding: 0;
+}
+
+add-button > .arrow-button > .arrow {
+   -fx-padding: 0;
+}
+
 .done-button {
     -fx-background-radius: 35;
     -fx-background-color: #A8D8C7;

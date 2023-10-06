@@ -72,6 +72,14 @@ public class Flight {
         priorities.add(priority);
     }
 
+    public void removePriority(Priority priority) {
+        priorities.remove(priority);
+    }
+
+    public void removeAllPriorities() {
+        priorities.clear();
+    }
+
     public boolean isArrival() {
         return arrival;
     }

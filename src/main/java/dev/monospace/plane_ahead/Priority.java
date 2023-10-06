@@ -34,12 +34,28 @@ public record Priority(String name, int urgency) {
         return tierPriority((int) (Math.random() * 3));
     }
 
+    public static HashMap<String, Priority> getTier() {
+        HashMap<String, Priority> priorities = new HashMap<>();
+        for (int i = 0; i < 3; i++) {
+            priorities.put("Tier " + tier.get(i), tierPriority(i));
+        }
+        return priorities;
+    }
+
     public static Priority fuelPriority(int urgency) {
         return new Priority(fuel.get(urgency) + " Fuel", urgency);
     }
 
     public static Priority randomFuel() {
         return fuelPriority((int) (Math.random() * 3));
+    }
+
+    public static HashMap<String, Priority> getFuel() {
+        HashMap<String, Priority> priorities = new HashMap<>();
+        for (int i = 0; i < 3; i++) {
+            priorities.put(fuel.get(i) + " Fuel", fuelPriority(i));
+        }
+        return priorities;
     }
 
     public static Priority arrivalMiscellaneousPriority(String name) {
@@ -52,10 +68,10 @@ public record Priority(String name, int urgency) {
         return new Priority(key, arrivalMiscellaneous.get(key));
     }
 
-    public static ArrayList<Priority> getArrivalMiscellaneous() {
-        ArrayList<Priority> priorities = new ArrayList<>();
+    public static HashMap<String, Priority> getArrivalMiscellaneous() {
+        HashMap<String, Priority> priorities = new HashMap<>();
         for (String key : arrivalMiscellaneous.keySet()) {
-            priorities.add(new Priority(key, arrivalMiscellaneous.get(key)));
+            priorities.put(key, new Priority(key, arrivalMiscellaneous.get(key)));
         }
         return priorities;
     }
@@ -70,10 +86,10 @@ public record Priority(String name, int urgency) {
         return new Priority(key, departureMiscellaneous.get(key));
     }
 
-    public static ArrayList<Priority> getDepartureMiscellaneous() {
-        ArrayList<Priority> priorities = new ArrayList<>();
+    public static HashMap<String, Priority> getDepartureMiscellaneous() {
+        HashMap<String, Priority> priorities = new HashMap<>();
         for (String key : departureMiscellaneous.keySet()) {
-            priorities.add(new Priority(key, departureMiscellaneous.get(key)));
+            priorities.put(key, new Priority(key, departureMiscellaneous.get(key)));
         }
         return priorities;
     }

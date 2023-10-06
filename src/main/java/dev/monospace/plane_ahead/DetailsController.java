@@ -6,11 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DetailsController {
@@ -27,9 +30,9 @@ public class DetailsController {
     @FXML
     TextField numberField;
     @FXML
-    HBox prioritiesBox;
+    FlowPane prioritiesBox;
     @FXML
-    Button addButton;
+    MenuButton addButton;
     @FXML
     Button doneButton;
     @FXML
@@ -105,6 +108,9 @@ public class DetailsController {
 
     public void setFlight(Flight flight, Boolean newFlight) {
         this.flight = flight;
+        if (newFlight) {
+            flight.removeAllPriorities();
+        }
         displayPlane(newFlight);
     }
 
@@ -128,9 +134,9 @@ public class DetailsController {
 
         if (!newFlight) {
             codeField.setText(this.flight.getAirlineCode());
-            codeField.setDisable(true);
+            codeField.setEditable(false);
             numberField.setText(String.valueOf(this.flight.getFlightNumber()));
-            numberField.setDisable(true);
+            numberField.setEditable(false);
 
             flight.getPriorities().forEach(priority -> prioritiesBox.getChildren().add(0, new PriorityNode(priority, true)));
 
@@ -146,6 +152,30 @@ public class DetailsController {
             tooltip.setShowDelay(Duration.millis(400));
             editButton.setTooltip(tooltip);
             deleteButton.setTooltip(tooltip);
+        }
+        else {
+            HashMap<String, Priority> choices = new HashMap<>();
+            choices.putAll(Priority.getTier());
+            choices.putAll(Priority.getFuel());
+            if (this.flight.isArrival()) {
+                choices.putAll(Priority.getArrivalMiscellaneous());
+            }
+            else {
+                choices.putAll(Priority.getDepartureMiscellaneous());
+            }
+            for (String name : choices.keySet()) {
+                MenuItem menuItem = new MenuItem(name);
+                addButton.getItems().add(menuItem);
+
+                menuItem.setOnAction(event -> {
+                    Priority priority = choices.get(menuItem.getText());
+                    prioritiesBox.getChildren().add(0, new PriorityNode(priority, false));
+                    flight.addPriority(priority);
+                    prioritiesBox.getChildren().clear();
+                    prioritiesBox.getChildren().add(addButton);
+                    flight.getPriorities().forEach(p -> prioritiesBox.getChildren().add(0, new PriorityNode(p, false)));
+                });
+            }
         }
         if (flight.isArrival()) {
             plane.setScaleX(-0.31);

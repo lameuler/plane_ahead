@@ -37,7 +37,7 @@ public class PriorityNode extends BorderPane {
 
         if (disable) {
             button.setDisable(true);
-            this.setDisable(true);
+//            this.setDisable(true);
         }
     }
 
