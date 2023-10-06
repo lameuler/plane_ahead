@@ -2,6 +2,7 @@ package dev.monospace.plane_ahead;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public record Priority(String name, int urgency) {
 
     private static final HashMap<Integer, String> tier = new HashMap<>() {{
@@ -58,10 +59,6 @@ public record Priority(String name, int urgency) {
         return priorities;
     }
 
-    public static Priority arrivalMiscellaneousPriority(String name) {
-        return new Priority(name, arrivalMiscellaneous.get(name));
-    }
-
     public static Priority randomArrivalMiscellaneous() {
         ArrayList<String> keys = new ArrayList<>(arrivalMiscellaneous.keySet());
         String key = keys.get((int) (Math.random() * keys.size()));
@@ -74,10 +71,6 @@ public record Priority(String name, int urgency) {
             priorities.put(key, new Priority(key, arrivalMiscellaneous.get(key)));
         }
         return priorities;
-    }
-
-    public static Priority departureMiscellaneousPriority(String name) {
-        return new Priority(name, departureMiscellaneous.get(name));
     }
 
     public static Priority randomDepartureMiscellaneous() {

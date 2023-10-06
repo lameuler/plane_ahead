@@ -6,18 +6,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Flight {
-    /**
-     * Two character airline designator
-     */
     private final String airlineCode;
-
-    /**
-     * Four digit flight number
-     */
     private final int flightNumber;
 
     private ArrayList<Priority> priorities = new ArrayList<>();
-    private boolean arrival;
+    private final boolean arrival;
 
     private Color bodyColor;
     private Color wingColor;
@@ -32,6 +25,26 @@ public class Flight {
         this.windowColor = Color.rgb(49, 86, 140);
     }
 
+    public static Flight random(boolean arrival) {
+        Random random = new Random();
+        String code = String.valueOf((char) random.nextInt('A', 'Z' + 1)) + (char) random.nextInt('A', 'Z' + 1);
+        int number = random.nextInt(1000, 9999);
+        Flight flight = new Flight(code, number, arrival);
+        double h = random.nextDouble(360);
+        double s = random.nextDouble(0.5);
+        double b = random.nextDouble(0.9, 0.98);
+        flight.setBodyColor(Color.hsb(h, s, b));
+        flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
+        flight.addPriority(Priority.randomTier());
+        if (arrival) {
+            flight.addPriority(Priority.randomFuel());
+            flight.addPriority(Priority.randomArrivalMiscellaneous());
+        } else {
+            flight.addPriority(Priority.randomDepartureMiscellaneous());
+        }
+        return flight;
+    }
+
     public String getAirlineCode() {
         return airlineCode;
     }
@@ -44,24 +57,24 @@ public class Flight {
         return bodyColor;
     }
 
-    public Color getWingColor() {
-        return wingColor;
-    }
-
-    public Color getWindowColor() {
-        return windowColor;
-    }
-
     public void setBodyColor(Color bodyColor) {
         this.bodyColor = bodyColor;
+    }
+
+    public Color getWingColor() {
+        return wingColor;
     }
 
     public void setWingColor(Color wingColor) {
         this.wingColor = wingColor;
     }
 
+    public Color getWindowColor() {
+        return windowColor;
+    }
+
     public void setWindowColor(Color windowColor) {
-         this.windowColor = windowColor;
+        this.windowColor = windowColor;
     }
 
     public ArrayList<Priority> getPriorities() {
@@ -86,31 +99,6 @@ public class Flight {
 
     public boolean isArrival() {
         return arrival;
-    }
-
-    public void setArrival(boolean arrival) {
-        this.arrival = arrival;
-    }
-
-    public static Flight random(boolean arrival) {
-        Random random = new Random();
-        String code = String.valueOf((char) random.nextInt('A', 'Z' + 1)) + (char) random.nextInt('A', 'Z' + 1);
-        int number = random.nextInt(1000, 9999);
-        Flight flight = new Flight(code, number, arrival);
-        double h = random.nextDouble(360);
-        double s = random.nextDouble(0.5);
-        double b = random.nextDouble(0.9, 0.98);
-        flight.setBodyColor(Color.hsb(h, s, b));
-        flight.setWingColor(Color.hsb(h, s * random.nextDouble(1.5), 1 - (1 - b) * random.nextDouble(1, 1.5)));
-        flight.addPriority(Priority.randomTier());
-        if (arrival) {
-            flight.addPriority(Priority.randomFuel());
-            flight.addPriority(Priority.randomArrivalMiscellaneous());
-        }
-        else {
-            flight.addPriority(Priority.randomDepartureMiscellaneous());
-        }
-        return flight;
     }
 
     public Plane toPlane() {

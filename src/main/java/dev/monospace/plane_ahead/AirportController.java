@@ -19,6 +19,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class AirportController {
+    private static QueueController departureQueue = new QueueController();
+    private static QueueController arrivalQueue = new QueueController();
+    private final Node departureView;
+    private final Node arrivalView;
     @FXML
     private AnchorPane planeLayer;
     @FXML
@@ -35,25 +39,20 @@ public class AirportController {
     private Button arrivalButton;
     @FXML
     private Button departureButton;
-
-    private final Node departureView;
-    private final Node arrivalView;
-
     private Flight arrivalFlight;
     private Flight departureFlight;
-
-    private static QueueController departureQueue = new QueueController();
-    private static QueueController arrivalQueue = new QueueController();
 
     public AirportController() throws IOException {
         departureView = QueueController.load();
         departureQueue = departureQueue.getController();
-        departureQueue.randomise(false);
+        departureQueue.setAirportController(this);
+        departureQueue.randomise(false, 1, 3);
         departureFlight = departureQueue.getNextFlight();
 
         arrivalView = QueueController.load();
         arrivalQueue = arrivalQueue.getController();
-        arrivalQueue.randomise(true);
+        arrivalQueue.setAirportController(this);
+        arrivalQueue.randomise(true, 1, 3);
         arrivalFlight = arrivalQueue.getNextFlight();
     }
 
@@ -81,7 +80,13 @@ public class AirportController {
         readyArrival();
         readyDeparture();
 
+        setupDepartureButton();
+        setupArrivalButton();
+    }
+
+    public void setupDepartureButton() {
         Button departureButton = (Button) departureView.lookup("#button");
+        departureButton.setText("+ New");
         departureButton.setOnAction(e -> {
             try {
                 Scene scene = departureButton.getScene();
@@ -90,15 +95,17 @@ public class AirportController {
                 DetailsController controller = fxmlLoader.getController();
                 controller.setFlight(Flight.random(false), true);
                 controller.setRoot(departureButton.getScene().getRoot());
-                controller.setDepartureQueue(departureQueue);
-                controller.setArrivalQueue(arrivalQueue);
+                controller.setRootController(this);
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
+    }
 
+    public void setupArrivalButton() {
         Button arrivalButton = (Button) arrivalView.lookup("#button");
+        arrivalButton.setText("+ New");
         arrivalButton.setOnAction(e -> {
             try {
                 Scene scene = arrivalButton.getScene();
@@ -108,8 +115,7 @@ public class AirportController {
                 controller.setFlight(Flight.random(true), true);
                 controller.setArrival();
                 controller.setRoot(arrivalButton.getScene().getRoot());
-                controller.setDepartureQueue(departureQueue);
-                controller.setArrivalQueue(arrivalQueue);
+                controller.setRootController(this);
                 scene.setRoot(parent);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -146,13 +152,9 @@ public class AirportController {
 
             DragInfo drag = new DragInfo();
 
-            arrivalPlane.setOnMouseEntered(e -> {
-                arrivalPlane.getScene().setCursor(Cursor.HAND);
-            });
+            arrivalPlane.setOnMouseEntered(e -> arrivalPlane.getScene().setCursor(Cursor.HAND));
 
-            arrivalPlane.setOnMouseExited(e -> {
-                arrivalPlane.getScene().setCursor(Cursor.DEFAULT);
-            });
+            arrivalPlane.setOnMouseExited(e -> arrivalPlane.getScene().setCursor(Cursor.DEFAULT));
 
             arrivalPlane.setOnMousePressed(e -> {
                 drag.mouseX = e.getSceneX();
@@ -182,17 +184,7 @@ public class AirportController {
                     tt.setToX(-1000);
                     tt.setToY(0);
                     tt.play();
-                    tt.setOnFinished(event -> {
-                        arrivalFlight = arrivalQueue.dequeue();
-                        new Thread(() -> {
-                            try {
-                                Thread.sleep((long) (Math.random() * 5000 + 5000));
-                            } catch (InterruptedException ex) {
-                                ex.printStackTrace();
-                            }
-                            Platform.runLater(this::readyArrival);
-                        }).start();
-                    });
+                    tt.setOnFinished(event -> arrivalDequeue());
                 }
             });
 
@@ -216,6 +208,28 @@ public class AirportController {
         planeLayer.getChildren().add(3, arrivalPlane);
     }
 
+    public void arrivalEnqueue(Flight flight) {
+        arrivalQueue.enqueue(flight);
+        if (arrivalFlight == null) {
+            arrivalDequeue();
+        }
+    }
+
+    public void arrivalDequeue() {
+        arrivalFlight = arrivalQueue.dequeue();
+        if (arrivalFlight != null) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                Platform.runLater(this::readyArrival);
+            }).start();
+        }
+        setupArrivalButton();
+    }
+
     private void readyDeparture() {
         departureButton.setDisable(false);
         departureButton.setVisible(true);
@@ -233,13 +247,9 @@ public class AirportController {
 
             DragInfo drag = new DragInfo();
 
-            departurePlane.setOnMouseEntered(e -> {
-                departurePlane.getScene().setCursor(Cursor.HAND);
-            });
+            departurePlane.setOnMouseEntered(e -> departurePlane.getScene().setCursor(Cursor.HAND));
 
-            departurePlane.setOnMouseExited(e -> {
-                departurePlane.getScene().setCursor(Cursor.DEFAULT);
-            });
+            departurePlane.setOnMouseExited(e -> departurePlane.getScene().setCursor(Cursor.DEFAULT));
 
             departurePlane.setOnMousePressed(e -> {
                 drag.mouseX = e.getSceneX();
@@ -269,17 +279,7 @@ public class AirportController {
                     tt.setToX(1000);
                     tt.setToY(-1 * Math.pow(Math.E, 5));
                     tt.play();
-                    tt.setOnFinished(event -> {
-                        departureFlight = departureQueue.dequeue();
-                        new Thread(() -> {
-                            try {
-                                Thread.sleep((long) (Math.random() * 5000 + 5000));
-                            } catch (InterruptedException ex) {
-                                ex.printStackTrace();
-                            }
-                            Platform.runLater(this::readyDeparture);
-                        }).start();
-                    });
+                    tt.setOnFinished(event -> departureDequeue());
                 }
             });
 
@@ -303,30 +303,26 @@ public class AirportController {
         planeLayer.getChildren().add(2, departurePlane);
     }
 
-    public Flight getArrivalFlight() {
-        return arrivalFlight;
-    }
-
-    public void setArrivalFlight(Flight arrivalFlight) {
-        this.arrivalFlight = arrivalFlight;
-        readyArrival();
-    }
-
-    public Flight getDepartureFlight() {
-        return departureFlight;
-    }
-
-    public void setDepartureFlight(Flight departureFlight) {
-        this.departureFlight = departureFlight;
-        readyDeparture();
-    }
-
-    public void addFlight(Flight flight) {
-        if (flight.isArrival()) {
-            arrivalQueue.enqueue(flight);
-        } else {
-            departureQueue.enqueue(flight);
+    public void departureEnqueue(Flight flight) {
+        departureQueue.enqueue(flight);
+        if (departureFlight == null) {
+            departureDequeue();
         }
+    }
+
+    public void departureDequeue() {
+        departureFlight = departureQueue.dequeue();
+        if (departureFlight != null) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                Platform.runLater(this::readyDeparture);
+            }).start();
+        }
+        setupDepartureButton();
     }
 
     static class DragInfo {

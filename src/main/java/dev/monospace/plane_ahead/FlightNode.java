@@ -19,11 +19,11 @@ import java.io.IOException;
 public class FlightNode extends BorderPane {
 
     private final Flight flight;
-    private QueueController queueController;
+    private final AirportController airportController;
 
-    public FlightNode(Flight flight, QueueController queueController) {
+    public FlightNode(Flight flight, AirportController airportController) {
         this.flight = flight;
-        this.queueController = queueController;
+        this.airportController = airportController;
         Label label = new Label();
         label.setText(flight.getAirlineCode() + " " + flight.getFlightNumber());
         label.setMinHeight(100);
@@ -44,14 +44,11 @@ public class FlightNode extends BorderPane {
         plane.setScaleY(0.08);
         plane.setTranslateY(-35);
         plane.setEffect(new DropShadow(100, 0, 0, Color.rgb(0, 0, 0, 0.2)));
-//        BorderPane.setAlignment(plane, Pos.CENTER);
         this.setLeft(label);
         this.setRight(plane);
         this.setPrefHeight(100);
 
         this.getStyleClass().add("flight-node");
-        // when selected, add a drop shadow
-
         this.setOnMouseClicked(event -> {
             Scene scene = this.getScene();
             Button button = (Button) scene.lookup("#button");
@@ -105,10 +102,9 @@ public class FlightNode extends BorderPane {
                 controller.setFlight(Flight.random(this.getFlight().isArrival()), true);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
-                    controller.setArrivalQueue(queueController);
-                }
-                else {
-                    controller.setDepartureQueue(queueController);
+                    controller.setRootController(airportController);
+                } else {
+                    controller.setRootController(airportController);
                 }
                 controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);
@@ -128,10 +124,9 @@ public class FlightNode extends BorderPane {
                 controller.setFlight(this.getFlight(), false);
                 if (this.getFlight().isArrival()) {
                     controller.setArrival();
-                    controller.setArrivalQueue(queueController);
-                }
-                else {
-                    controller.setDepartureQueue(queueController);
+                    controller.setRootController(airportController);
+                } else {
+                    controller.setRootController(airportController);
                 }
                 controller.setRoot(scene.getRoot());
                 scene.setRoot(parent);

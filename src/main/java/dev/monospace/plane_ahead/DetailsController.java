@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class DetailsController {
+    private final Plane plane = new Plane();
     @FXML
     Button homeButton;
     @FXML
@@ -41,13 +42,9 @@ public class DetailsController {
     ImageView background;
     @FXML
     Label title;
-
     private Flight flight;
-    private final Plane plane = new Plane();
-
     private Parent root;
-    private QueueController departureQueue;
-    private QueueController arrivalQueue;
+    private AirportController airportController;
 
     public void initialize() {
         homeButton.setOnAction(event -> {
@@ -55,13 +52,9 @@ public class DetailsController {
             scene.setRoot(root);
         });
 
-        colourButton.setOnAction(event -> {
-            colorPicker.show();
-        });
+        colourButton.setOnAction(event -> colorPicker.show());
 
-        colorPicker.setOnAction(event -> {
-            plane.setTheme(colorPicker.getValue());
-        });
+        colorPicker.setOnAction(event -> plane.setTheme(colorPicker.getValue()));
 
         colorPicker.setVisible(false);
 
@@ -77,16 +70,14 @@ public class DetailsController {
                 flight.setWingColor(plane.getWingFill());
                 flight.setWindowColor(plane.getWindowFill());
                 if (this.flight.isArrival()) {
-                    arrivalQueue.enqueue(flight);
+                    airportController.arrivalEnqueue(flight);
                 } else {
-                    departureQueue.enqueue(flight);
+                    airportController.departureEnqueue(flight);
                 }
                 Scene scene = doneButton.getScene();
                 scene.setRoot(root);
-            }
-            else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.initStyle(StageStyle.UNDECORATED);
                 ImageView alertIcon = new ImageView(Objects.requireNonNull(getClass().getResource("error.png")).toExternalForm());
                 alertIcon.setFitHeight(100);
                 alertIcon.setFitWidth(100);
@@ -118,12 +109,8 @@ public class DetailsController {
         title.setText("Landing...");
     }
 
-    public void setDepartureQueue(QueueController departureQueue) {
-        this.departureQueue = departureQueue;
-    }
-
-    public void setArrivalQueue(QueueController arrivalQueue) {
-        this.arrivalQueue = arrivalQueue;
+    public void setRootController(AirportController airportController) {
+        this.airportController = airportController;
     }
 
     private void displayPlane(boolean newFlight) {
@@ -151,15 +138,13 @@ public class DetailsController {
             tooltip.setShowDelay(Duration.millis(400));
             editButton.setTooltip(tooltip);
             deleteButton.setTooltip(tooltip);
-        }
-        else {
+        } else {
             HashMap<String, Priority> choices = new HashMap<>();
             choices.putAll(Priority.getTier());
             choices.putAll(Priority.getFuel());
             if (this.flight.isArrival()) {
                 choices.putAll(Priority.getArrivalMiscellaneous());
-            }
-            else {
+            } else {
                 choices.putAll(Priority.getDepartureMiscellaneous());
             }
             setChoices(choices);
@@ -209,12 +194,10 @@ public class DetailsController {
                         if (Priority.getTier().containsValue(p)) {
                             choices.putAll(Priority.getTier());
                             setChoices(choices);
-                        }
-                        else if (Priority.getFuel().containsValue(p)) {
+                        } else if (Priority.getFuel().containsValue(p)) {
                             choices.putAll(Priority.getFuel());
                             setChoices(choices);
-                        }
-                        else {
+                        } else {
                             choices.put(p.name(), p);
                             setChoices(choices);
                         }

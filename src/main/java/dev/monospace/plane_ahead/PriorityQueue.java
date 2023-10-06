@@ -34,7 +34,7 @@ public class PriorityQueue<T, S extends Comparable<? super S>> {
 
     public T dequeue() {
         if (count == 0) {
-            throw new RuntimeException();
+            return null;
         }
         Entry<T, S> max = get(0);
         Entry<T, S> last = get(--count);
