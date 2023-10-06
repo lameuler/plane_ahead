@@ -38,9 +38,21 @@ public class Flight {
         flight.addPriority(Priority.randomTier());
         if (arrival) {
             flight.addPriority(Priority.randomFuel());
-            flight.addPriority(Priority.randomArrivalMiscellaneous());
+            Priority randomPriority = Priority.randomArrivalMiscellaneous();
+            flight.addPriority(randomPriority);
+            Priority randomPriority2 = Priority.randomArrivalMiscellaneous();
+            while (randomPriority2.name().equals(randomPriority.name())) {
+                randomPriority2 = Priority.randomArrivalMiscellaneous();
+            }
+            flight.addPriority(randomPriority2);
         } else {
-            flight.addPriority(Priority.randomDepartureMiscellaneous());
+            Priority randomPriority = Priority.randomDepartureMiscellaneous();
+            flight.addPriority(randomPriority);
+            Priority randomPriority2 = Priority.randomDepartureMiscellaneous();
+            while (randomPriority2.name().equals(randomPriority.name())) {
+                randomPriority2 = Priority.randomDepartureMiscellaneous();
+            }
+            flight.addPriority(randomPriority2);
         }
         return flight;
     }

@@ -49,7 +49,7 @@
                </children>
             </HBox>
             <StackPane fx:id="planeLayer" prefHeight="300.0" prefWidth="200.0" />
-            <AnchorPane styleClass="controls">
+            <AnchorPane maxHeight="-Infinity" prefHeight="320.0" styleClass="controls">
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>

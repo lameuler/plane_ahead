@@ -141,8 +141,8 @@ public class DetailsController {
         } else {
             HashMap<String, Priority> choices = new HashMap<>();
             choices.putAll(Priority.getTier());
-            choices.putAll(Priority.getFuel());
             if (this.flight.isArrival()) {
+                choices.putAll(Priority.getFuel());
                 choices.putAll(Priority.getArrivalMiscellaneous());
             } else {
                 choices.putAll(Priority.getDepartureMiscellaneous());

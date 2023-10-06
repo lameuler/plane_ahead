@@ -7,23 +7,34 @@ public record Priority(String name, int urgency) {
     private static final HashMap<Integer, String> tier = new HashMap<>() {{
         put(0, "I");
         put(1, "II");
-        put(2, "III");
+        put(3, "III");
     }};
 
     private static final HashMap<Integer, String> fuel = new HashMap<>() {{
         put(0, "Max");
-        put(1, "Moderate");
-        put(2, "Low");
+        put(2, "Moderate");
+        put(5, "Low");
     }};
 
     private static final HashMap<String, Integer> arrivalMiscellaneous = new HashMap<>() {{
-        put("Nothing", 0);
-        put("VIP", 2);
+        put("VIP", 3);
+        put("Fire", 5);
+        put("Close to airport", 2);
+        put("Emergency", 10);
+        put("Medical emergency", 8);
+        put("Aircraft malfunction", 6);
+        put("Severe weather", 4);
+        put("Large aircraft", 2);
+        put("Small aircraft", 1);
     }};
 
     private static final HashMap<String, Integer> departureMiscellaneous = new HashMap<>() {{
-        put("Nothing", 0);
         put("VIP", 2);
+        put("Cargo flight", 3);
+        put("Military flight", 4);
+        put("Delayed flight", 2);
+        put("Aircraft maintenance", -2);
+        put("Aircraft refueling", -1);
     }};
 
     public static Priority tierPriority(int urgency) {
@@ -31,7 +42,9 @@ public record Priority(String name, int urgency) {
     }
 
     public static Priority randomTier() {
-        return tierPriority((int) (Math.random() * 3));
+        ArrayList<Integer> keys = new ArrayList<>(tier.keySet());
+        int key = keys.get((int) (Math.random() * keys.size()));
+        return tierPriority(key);
     }
 
     public static HashMap<String, Priority> getTier() {
@@ -47,7 +60,9 @@ public record Priority(String name, int urgency) {
     }
 
     public static Priority randomFuel() {
-        return fuelPriority((int) (Math.random() * 3));
+        ArrayList<Integer> keys = new ArrayList<>(fuel.keySet());
+        int key = keys.get((int) (Math.random() * keys.size()));
+        return fuelPriority(key);
     }
 
     public static HashMap<String, Priority> getFuel() {
