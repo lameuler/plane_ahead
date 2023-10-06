@@ -12,8 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -147,6 +149,7 @@ public class AirportController {
             arrivalPlane.setVisible(false);
         } else {
             arrivalPlane = arrivalFlight.toPlane();
+            arrivalPlane.setEffect(new DropShadow(100, 0, 50, Color.rgb(0, 0, 0, 0.2)));
 
             arrivalPlane.setTranslateY(-1 * Math.pow(Math.E, (double) 5 / 2));
 
@@ -244,6 +247,7 @@ public class AirportController {
             departurePlane.setVisible(false);
         } else {
             departurePlane = departureFlight.toPlane();
+            departurePlane.setEffect(new DropShadow(100, 0, 50, Color.rgb(0, 0, 0, 0.2)));
 
             DragInfo drag = new DragInfo();
 

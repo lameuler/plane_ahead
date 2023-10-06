@@ -10,14 +10,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
+
 import java.io.IOException;
 import java.util.Objects;
 
 public class PlaneAheadApplication extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PlaneAheadApplication.class.getResource("airport-view.fxml"));
@@ -33,5 +30,9 @@ public class PlaneAheadApplication extends Application {
         stage.setResizable(false);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.png"))));
         stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }

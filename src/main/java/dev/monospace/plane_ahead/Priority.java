@@ -2,7 +2,6 @@ package dev.monospace.plane_ahead;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public record Priority(String name, int urgency) {
 
     private static final HashMap<Integer, String> tier = new HashMap<>() {{
