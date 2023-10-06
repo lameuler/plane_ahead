@@ -74,6 +74,7 @@ public class DetailsController {
             if (airlineCode.length() == 2 && flightNumberString.length() == 4 && flightNumberString.matches("[0-9]+")) {
                 int flightNumber = Integer.parseInt(flightNumberString);
                 Flight flight = new Flight(airlineCode.toUpperCase(), flightNumber, this.flight.isArrival());
+                flight.setPriorities(new ArrayList<>(this.flight.getPriorities()));
                 flight.setBodyColor(plane.getBodyFill());
                 flight.setWingColor(plane.getWingFill());
                 flight.setWindowColor(plane.getWindowFill());

@@ -68,6 +68,10 @@ public class Flight {
         return priorities;
     }
 
+    public void setPriorities(ArrayList<Priority> priorities) {
+        this.priorities = priorities;
+    }
+
     public void addPriority(Priority priority) {
         priorities.add(priority);
     }
