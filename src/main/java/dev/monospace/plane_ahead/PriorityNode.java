@@ -44,4 +44,8 @@ public class PriorityNode extends BorderPane {
     public Priority getPriority() {
         return priority;
     }
+
+    public Button getButton() {
+        return (Button) this.getRight();
+    }
 }

@@ -61,7 +61,7 @@
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
                                     <Label text="Airline code:" />
-                                    <TextField fx:id="codeField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="ABC" styleClass="name-field" />
+                                    <TextField fx:id="codeField" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" promptText="AB" styleClass="name-field" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="20.0">

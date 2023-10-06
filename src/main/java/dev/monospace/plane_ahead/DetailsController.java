@@ -7,9 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -164,19 +162,7 @@ public class DetailsController {
             else {
                 choices.putAll(Priority.getDepartureMiscellaneous());
             }
-            for (String name : choices.keySet()) {
-                MenuItem menuItem = new MenuItem(name);
-                addButton.getItems().add(menuItem);
-
-                menuItem.setOnAction(event -> {
-                    Priority priority = choices.get(menuItem.getText());
-                    prioritiesBox.getChildren().add(0, new PriorityNode(priority, false));
-                    flight.addPriority(priority);
-                    prioritiesBox.getChildren().clear();
-                    prioritiesBox.getChildren().add(addButton);
-                    flight.getPriorities().forEach(p -> prioritiesBox.getChildren().add(0, new PriorityNode(p, false)));
-                });
-            }
+            setChoices(choices);
         }
         if (flight.isArrival()) {
             plane.setScaleX(-0.31);
@@ -189,4 +175,54 @@ public class DetailsController {
         plane.setTranslateY(-100);
         planeLayer.getChildren().add(plane);
     }
+
+    private void setChoices(HashMap<String, Priority> choices) {
+        addButton.getItems().clear();
+
+        for (String name : choices.keySet()) {
+            MenuItem menuItem = new MenuItem(name);
+            addButton.getItems().add(menuItem);
+
+            menuItem.setOnAction(event -> {
+                Priority priority = choices.get(menuItem.getText());
+                prioritiesBox.getChildren().add(0, new PriorityNode(priority, false));
+                flight.addPriority(priority);
+                prioritiesBox.getChildren().clear();
+                prioritiesBox.getChildren().add(addButton);
+                if (Priority.getTier().containsValue(priority)) {
+                    choices.keySet().removeIf(key -> Priority.getTier().containsKey(key));
+                    setChoices(choices);
+                } else if (Priority.getFuel().containsValue(priority)) {
+                    choices.keySet().removeIf(key -> Priority.getFuel().containsKey(key));
+                    setChoices(choices);
+                } else {
+                    choices.remove(priority.name());
+                    setChoices(choices);
+                }
+
+                for (Priority p : flight.getPriorities()) {
+                    PriorityNode priorityNode = new PriorityNode(p, false);
+                    Button removeButton = priorityNode.getButton();
+                    removeButton.setOnAction(e -> {
+                        flight.removePriority(priorityNode.getPriority());
+                        prioritiesBox.getChildren().remove(priorityNode);
+                        if (Priority.getTier().containsValue(p)) {
+                            choices.putAll(Priority.getTier());
+                            setChoices(choices);
+                        }
+                        else if (Priority.getFuel().containsValue(p)) {
+                            choices.putAll(Priority.getFuel());
+                            setChoices(choices);
+                        }
+                        else {
+                            choices.put(p.name(), p);
+                            setChoices(choices);
+                        }
+                    });
+                    prioritiesBox.getChildren().add(prioritiesBox.getChildren().size() - 1, priorityNode);
+                }
+            });
+        }
+    }
+
 }
