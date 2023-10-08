@@ -17,6 +17,8 @@ import java.util.Objects;
 public class DetailsController {
     private final Plane plane = new Plane();
     @FXML
+    StackPane rootStackPane;
+    @FXML
     Button homeButton;
     @FXML
     Button colourButton;
@@ -47,6 +49,12 @@ public class DetailsController {
     private AirportController airportController;
 
     public void initialize() {
+
+        System.out.println(rootStackPane.getWidth());
+
+        background.fitWidthProperty().bind(rootStackPane.widthProperty());
+        background.fitHeightProperty().bind(rootStackPane.heightProperty());
+
         homeButton.setOnAction(event -> {
             Scene scene = homeButton.getScene();
             scene.setRoot(root);
