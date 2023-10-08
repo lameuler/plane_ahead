@@ -223,7 +223,8 @@ public class AirportController {
         if (arrivalFlight != null) {
             new Thread(() -> {
                 try {
-                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+//                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+                    Thread.sleep((long) (Math.random() * 1000));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -319,7 +320,8 @@ public class AirportController {
         if (departureFlight != null) {
             new Thread(() -> {
                 try {
-                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+//                    Thread.sleep((long) (Math.random() * 5000 + 5000));
+                    Thread.sleep((long) (Math.random() * 1000));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
