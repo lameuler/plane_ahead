@@ -28,8 +28,6 @@ public class AirportController {
     @FXML
     private AnchorPane planeLayer;
     @FXML
-    private Canvas canvas;
-    @FXML
     private RadioButton departureToggle;
     @FXML
     private RadioButton arrivalToggle;
@@ -45,7 +43,6 @@ public class AirportController {
     private Button departureButton;
     private Flight arrivalFlight;
     private Flight departureFlight;
-    private GraphicsContext gc;
 
     public AirportController() throws IOException {
         departureView = QueueController.load();
@@ -71,11 +68,6 @@ public class AirportController {
         departureButton.setDisable(true);
         arrivalButton.setVisible(false);
         departureButton.setVisible(false);
-
-        canvas.widthProperty().bind(planeLayer.widthProperty());
-        canvas.heightProperty().bind(planeLayer.heightProperty());
-        canvas = new Canvas();
-        gc = canvas.getGraphicsContext2D();
 
         displayDeparture(null);
         displayArrival(null);
