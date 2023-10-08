@@ -4,10 +4,9 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
@@ -29,6 +28,8 @@ public class AirportController {
     @FXML
     private AnchorPane planeLayer;
     @FXML
+    private Canvas canvas;
+    @FXML
     private RadioButton departureToggle;
     @FXML
     private RadioButton arrivalToggle;
@@ -44,6 +45,7 @@ public class AirportController {
     private Button departureButton;
     private Flight arrivalFlight;
     private Flight departureFlight;
+    private GraphicsContext gc;
 
     public AirportController() throws IOException {
         departureView = QueueController.load();
@@ -69,6 +71,11 @@ public class AirportController {
         departureButton.setDisable(true);
         arrivalButton.setVisible(false);
         departureButton.setVisible(false);
+
+        canvas.widthProperty().bind(planeLayer.widthProperty());
+        canvas.heightProperty().bind(planeLayer.heightProperty());
+        canvas = new Canvas();
+        gc = canvas.getGraphicsContext2D();
 
         displayDeparture(null);
         displayArrival(null);
