@@ -50,6 +50,8 @@ public class DetailsController {
 
     public void initialize() {
 
+        System.out.println(rootStackPane.getWidth());
+
         background.fitWidthProperty().bind(rootStackPane.widthProperty());
         background.fitHeightProperty().bind(rootStackPane.heightProperty());
 
@@ -145,7 +147,8 @@ public class DetailsController {
             editButton.setTooltip(tooltip);
             deleteButton.setTooltip(tooltip);
         } else {
-            HashMap<String, Priority> choices = new HashMap<>(Priority.getTier());
+            HashMap<String, Priority> choices = new HashMap<>();
+            choices.putAll(Priority.getTier());
             if (this.flight.isArrival()) {
                 choices.putAll(Priority.getFuel());
                 choices.putAll(Priority.getArrivalMiscellaneous());
