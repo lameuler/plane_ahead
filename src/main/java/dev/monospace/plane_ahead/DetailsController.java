@@ -49,9 +49,6 @@ public class DetailsController {
     private AirportController airportController;
 
     public void initialize() {
-
-        System.out.println(rootStackPane.getWidth());
-
         background.fitWidthProperty().bind(rootStackPane.widthProperty());
         background.fitHeightProperty().bind(rootStackPane.heightProperty());
 
@@ -165,7 +162,7 @@ public class DetailsController {
             plane.setTranslateX(8);
         }
         plane.setScaleY(0.31);
-        plane.setTranslateY(-100);
+        plane.setTranslateY(-140);
         planeLayer.getChildren().add(plane);
     }
 
