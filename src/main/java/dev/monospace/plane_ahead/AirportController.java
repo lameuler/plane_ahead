@@ -192,13 +192,7 @@ public class AirportController {
                     tt.setToY(0);
                     tt.play();
                     tt.setOnFinished(event -> arrivalDequeue());
-                    try {
-                        Audio audio = new Audio("./sounds/airplane_sfx.wav");
-                        audio.play();
-                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
-                        throw new RuntimeException(e2);
-                    }
-
+                    playAirplaneSFX();
                 }
             });
 
@@ -296,6 +290,7 @@ public class AirportController {
                     tt.setToY(-1 * Math.pow(Math.E, 5));
                     tt.play();
                     tt.setOnFinished(event -> departureDequeue());
+                    playAirplaneSFX();
                 }
             });
 
@@ -340,6 +335,15 @@ public class AirportController {
             }).start();
         }
         setupDepartureButton();
+    }
+
+    public void playAirplaneSFX(){
+        try {
+            Audio audio = new Audio("./sounds/airplane_sfx.wav");
+            audio.play();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
+            throw new RuntimeException(e2);
+        }
     }
 
     static class DragInfo {
