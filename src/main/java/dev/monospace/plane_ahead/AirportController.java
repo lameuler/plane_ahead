@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class AirportController {
@@ -84,6 +86,8 @@ public class AirportController {
 
         setupDepartureButton();
         setupArrivalButton();
+
+
     }
 
     public void setupDepartureButton() {
@@ -188,6 +192,13 @@ public class AirportController {
                     tt.setToY(0);
                     tt.play();
                     tt.setOnFinished(event -> arrivalDequeue());
+                    try {
+                        Audio audio = new Audio("./sounds/airplane_sfx.wav");
+                        audio.play();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
+                        throw new RuntimeException(e2);
+                    }
+
                 }
             });
 
