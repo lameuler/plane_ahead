@@ -49,8 +49,8 @@ public record Priority(String name, int urgency) {
 
     public static HashMap<String, Priority> getTier() {
         HashMap<String, Priority> priorities = new HashMap<>();
-        for (int i = 0; i < 3; i++) {
-            priorities.put("Tier " + tier.get(i), tierPriority(i));
+        for (int key : tier.keySet()) {
+            priorities.put("Tier " + tier.get(key), tierPriority(key));
         }
         return priorities;
     }
@@ -67,8 +67,8 @@ public record Priority(String name, int urgency) {
 
     public static HashMap<String, Priority> getFuel() {
         HashMap<String, Priority> priorities = new HashMap<>();
-        for (int i = 0; i < 3; i++) {
-            priorities.put(fuel.get(i) + " Fuel", fuelPriority(i));
+        for (int key : fuel.keySet()) {
+            priorities.put(fuel.get(key) + " Fuel", fuelPriority(key));
         }
         return priorities;
     }
